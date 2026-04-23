@@ -1,0 +1,9 @@
+# Core
+numpy
+requests
+aiohttp
+faiss-cpu
+sentence-transformers
+openai
+psutil
+tqdm
