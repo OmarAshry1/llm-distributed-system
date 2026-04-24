@@ -2,10 +2,14 @@ import threading
 from common.models import Request
 
 def simulate_user(scheduler, user_id):
-    request = Request(user_id, f"Question {user_id}")
-    response = scheduler.route_request(request)
-    print(f"[Client] Got response: {response['id']} | Latency: {response['latency']:.3f}s")
-
+    for i in range(3):  #simulate 3 convos
+        req = Request(
+            id=f"{user_id}_{i}",
+            query=f"Question {i} from user {user_id}",
+            client_id=user_id
+        )
+        response = scheduler.route_request(req)
+        print(f"[Client {user_id}] {response}")
 
 def run_load_test(scheduler, num_users=100):
     threads = []
