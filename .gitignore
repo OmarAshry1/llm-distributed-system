@@ -20,3 +20,4 @@ dist/
 *.faiss
 *.index
 *.pkl
+rag/chroma_db/

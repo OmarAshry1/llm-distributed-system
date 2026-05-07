@@ -1,5 +1,5 @@
 # Core
-numpy
+numpy>=1.26.0
 requests
 aiohttp
 faiss-cpu
@@ -7,6 +7,7 @@ sentence-transformers
 openai
 psutil
 tqdm
+pytest>=8.0.0
 
 streamlit>=1.32.0
 langchain>=0.1.0
@@ -18,8 +19,7 @@ python-dotenv>=1.0.0
 
 
 chromadb==0.4.15
-pysqlite3-binary==0.5.1
-numpy==1.26.0
+pysqlite3-binary==0.5.1; platform_system != "Windows" and python_version < "3.13"
 
 
 sentence-transformers>=2.2.2

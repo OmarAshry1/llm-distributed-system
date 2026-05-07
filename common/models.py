@@ -8,6 +8,10 @@ class Request:
 
 @dataclass
 class Response:
-    id: int
+    id: str
     result: str
     latency: float
+    worker_id: int | None = None
+    success: bool = True
+    error: str | None = None
+    attempts: int = 1

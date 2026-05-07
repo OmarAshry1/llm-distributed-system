@@ -1,8 +1,10 @@
 class Scheduler:
-    def __init__(self, workers):
-        self.workers = workers
+    def __init__(self, load_balancer):
+        self.lb = load_balancer
 
     def handle_request(self, request):
         print(f"[Scheduler] Dispatching request {request.id}")
-        response = self.lb.dispatch(request)
-        return response
+        return self.lb.dispatch(request)
+
+    def route_request(self, request):
+        return self.handle_request(request)

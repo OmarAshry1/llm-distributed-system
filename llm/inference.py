@@ -1,7 +1,20 @@
+import os
 import time
 from rag.rag_engine import query_rag_with_memory
 
-# no context handedling hena kolo m3molo handle fel rag engine
+
+def _simulation_delay():
+    try:
+        return max(0.0, float(os.getenv("SIMULATED_LLM_DELAY", "0")))
+    except ValueError:
+        print("[LLM] Invalid SIMULATED_LLM_DELAY; using 0.")
+        return 0.0
+
+
+# Context handling is owned by the RAG engine.
 def run_llm(query, session_id):
-    time.sleep(0.1)
+    delay = _simulation_delay()
+    if delay:
+        time.sleep(delay)
+
     return query_rag_with_memory(query, session_id)
