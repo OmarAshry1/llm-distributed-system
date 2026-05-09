@@ -7,6 +7,7 @@ from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_ollama import ChatOllama
 from langchain_groq import ChatGroq
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -62,7 +63,7 @@ def _resolve_config(
         "persist_directory": Path(
             persist_directory or os.getenv("RAG_PERSIST_DIR", DEFAULT_PERSIST_DIR)
         ),
-        "model_name": model_name or os.getenv("GROQ_MODEL", "gemma2-9b-it"),
+        "model_name": model_name or os.getenv("GROQ_MODEL", "llama-3.1-8b-instant"),
         "embedding_model": embedding_model
         or os.getenv("RAG_EMBEDDING_MODEL", "all-MiniLM-L6-v2"),
         "chunk_size": chunk_size or _env_int("RAG_CHUNK_SIZE", 1000),
@@ -127,7 +128,7 @@ def _build_or_load_vectorstore(pdf_paths, embeddings, splitter, persist_director
 # Workflow: PDFs -> chunks -> embeddings -> vector DB -> retriever -> LLM chain.
 def initialize_rag(
     pdf_paths,
-    groq_api_key,
+    groq_api_key=None,
     persist_directory=None,
     model_name=None,
     embedding_model=None,
@@ -135,6 +136,8 @@ def initialize_rag(
     chunk_overlap=None,
     retriever_k=None,
     force_rebuild=False,
+    use_local_llm=True,
+    ollama_base_url=None,
 ):
     global vectorstore, rag_chain, _rag_ready
 
@@ -143,8 +146,8 @@ def initialize_rag(
             print("[RAG] Already initialized")
             return rag_chain
 
-        if not groq_api_key:
-            raise ValueError("GROQ_API_KEY is required to initialize RAG.")
+        if not use_local_llm and not groq_api_key:
+            raise ValueError("GROQ_API_KEY is required when not using local LLM.")
 
         if not pdf_paths:
             raise ValueError("At least one PDF path is required to initialize RAG.")
@@ -185,10 +188,19 @@ def initialize_rag(
         )
 
     # LLM
-        llm = ChatGroq(
-            groq_api_key=groq_api_key,
-            model_name=config["model_name"]
-        )
+        if use_local_llm:
+            base_url = ollama_base_url or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+            model = config["model_name"] or os.getenv("OLLAMA_MODEL", "mistral")
+            print(f"[RAG] Using local Ollama model: {model} at {base_url}")
+            llm = ChatOllama(
+                base_url=base_url,
+                model=model
+            )
+        else:
+            llm = ChatGroq(
+                groq_api_key=groq_api_key,
+                model_name=config["model_name"]
+            )
 
     # Prompt
         system_prompt = (
