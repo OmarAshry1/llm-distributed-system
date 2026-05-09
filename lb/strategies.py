@@ -21,7 +21,9 @@ class RoundRobin:
 # choose worker with lowest current load
 class LeastConnections:
     def get_worker(self, workers):
-        return min(workers, key=lambda w: w.active_connections)
+        min_load = min(w.active_connections for w in workers)
+        candidates = [w for w in workers if w.active_connections == min_load]
+        return random.choice(candidates)
 
 
 # Load-Aware: Prefers workers below a certain load threshold to prevent overload and falls back to least connections when all workers are busy to prevent overload
@@ -38,7 +40,11 @@ class LoadAware:
 
         # choose least loaded among them if available 
         if under_threshold:
-            return min(under_threshold, key=lambda w: w.active_connections)
+            min_load = min(w.active_connections for w in under_threshold)
+            candidates = [
+                w for w in under_threshold if w.active_connections == min_load
+            ]
+            return random.choice(candidates)
 
         # to maintain fairness under equal load
         min_load = min(w.active_connections for w in workers)

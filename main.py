@@ -1,4 +1,5 @@
 import argparse
+import json
 import os
 from pathlib import Path
 
@@ -131,6 +132,22 @@ def parse_args():
         default=os.getenv("PDF_PATHS", DEFAULT_PDF_PATHS),
         help="Comma-separated PDF paths for RAG ingestion.",
     )
+    parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Suppress per-request log lines (LB, workers, clients, scheduler).",
+    )
+    parser.add_argument(
+        "--metrics-json",
+        default=None,
+        metavar="PATH",
+        help="Write the metrics summary dict to this JSON file after the run.",
+    )
+    parser.add_argument(
+        "--skip-rag-init",
+        action="store_true",
+        help="Skip PDF ingestion and vector DB (use with MOCK_LLM=1 for load-balancer-only runs).",
+    )
     return parser.parse_args()
 
 
@@ -139,40 +156,44 @@ def main():
         load_dotenv(BASE_DIR / ".env")
 
     args = parse_args()
-    groq_api_key = os.getenv("GROQ_API_KEY")
+    if args.quiet:
+        os.environ["DISTRIBUTED_QUIET"] = "1"
 
-    if not groq_api_key:
-        print("[Config] Missing GROQ_API_KEY. Add it to .env or your environment.")
-        return 1
+    if args.skip_rag_init:
+        pdf_paths = []
+        print("[Config] --skip-rag-init: skipping PDF validation and RAG vector DB setup.")
+    else:
+        pdf_paths, missing_paths = resolve_existing_pdf_paths(args.pdf_paths)
+        if not pdf_paths and not missing_paths:
+            print("[Config] No PDF files configured. Set PDF_PATHS or pass --pdf-paths.")
+            return 1
 
-    pdf_paths, missing_paths = resolve_existing_pdf_paths(args.pdf_paths)
-    if not pdf_paths and not missing_paths:
-        print("[Config] No PDF files configured. Set PDF_PATHS or pass --pdf-paths.")
-        return 1
-
-    if missing_paths:
-        print("[Config] Missing PDF file(s):")
-        for path in missing_paths:
-            print(f"  - {path}")
-        print("[Config] Set PDF_PATHS or pass --pdf-paths with existing PDF files.")
-        return 1
+        if missing_paths:
+            print("[Config] Missing PDF file(s):")
+            for path in missing_paths:
+                print(f"  - {path}")
+            print("[Config] Set PDF_PATHS or pass --pdf-paths with existing PDF files.")
+            return 1
 
     try:
-        from rag.rag_engine import initialize_rag
         from workers.gpu_worker import Worker
     except ModuleNotFoundError as error:
         print(f"[Config] Missing Python dependency: {error.name}")
         print("[Config] Install requirements with: py -m pip install -r requirements.txt")
         return 1
 
-    try:
-        initialize_rag(
-            pdf_paths=pdf_paths,
-            groq_api_key=groq_api_key,
-        )
-    except Exception as error:
-        print(f"[RAG] Failed to initialize: {error}")
-        return 1
+    if not args.skip_rag_init:
+        try:
+            from rag.rag_engine import initialize_rag
+        except ModuleNotFoundError as error:
+            print(f"[Config] Missing Python dependency: {error.name}")
+            print("[Config] Install requirements with: py -m pip install -r requirements.txt")
+            return 1
+        try:
+            initialize_rag(pdf_paths=pdf_paths)
+        except Exception as error:
+            print(f"[RAG] Failed to initialize: {error}")
+            return 1
 
     workers = [Worker(i, capacity=args.worker_capacity) for i in range(args.num_workers)]
     strategy = build_strategy(args.strategy, args.load_threshold)
@@ -197,6 +218,11 @@ def main():
     )
     print_summary(summary)
     print(f"[Health] {load_balancer.health_check()}")
+    if args.metrics_json:
+        out = Path(args.metrics_json)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+        print(f"[Config] Wrote metrics to {out.resolve()}")
     return 0
 
 

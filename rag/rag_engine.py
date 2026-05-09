@@ -8,7 +8,6 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_ollama import ChatOllama
-from langchain_groq import ChatGroq
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
@@ -63,7 +62,7 @@ def _resolve_config(
         "persist_directory": Path(
             persist_directory or os.getenv("RAG_PERSIST_DIR", DEFAULT_PERSIST_DIR)
         ),
-        "model_name": model_name or os.getenv("GROQ_MODEL", "llama-3.1-8b-instant"),
+        "model_name": model_name or os.getenv("OLLAMA_MODEL", "mistral"),
         "embedding_model": embedding_model
         or os.getenv("RAG_EMBEDDING_MODEL", "all-MiniLM-L6-v2"),
         "chunk_size": chunk_size or _env_int("RAG_CHUNK_SIZE", 1000),
@@ -128,7 +127,6 @@ def _build_or_load_vectorstore(pdf_paths, embeddings, splitter, persist_director
 # Workflow: PDFs -> chunks -> embeddings -> vector DB -> retriever -> LLM chain.
 def initialize_rag(
     pdf_paths,
-    groq_api_key=None,
     persist_directory=None,
     model_name=None,
     embedding_model=None,
@@ -136,7 +134,6 @@ def initialize_rag(
     chunk_overlap=None,
     retriever_k=None,
     force_rebuild=False,
-    use_local_llm=True,
     ollama_base_url=None,
 ):
     global vectorstore, rag_chain, _rag_ready
@@ -145,9 +142,6 @@ def initialize_rag(
         if _rag_ready and rag_chain is not None:
             print("[RAG] Already initialized")
             return rag_chain
-
-        if not use_local_llm and not groq_api_key:
-            raise ValueError("GROQ_API_KEY is required when not using local LLM.")
 
         if not pdf_paths:
             raise ValueError("At least one PDF path is required to initialize RAG.")
@@ -164,7 +158,6 @@ def initialize_rag(
 
         print("[RAG] Initializing")
 
-    # Embeddings -> sparse vectors
         embeddings = HuggingFaceEmbeddings(
             model_name=config["embedding_model"]
         )
@@ -174,7 +167,6 @@ def initialize_rag(
             chunk_overlap=config["chunk_overlap"]
         )
 
-    # Vector DB
         vectorstore = _build_or_load_vectorstore(
             pdf_paths=pdf_paths,
             embeddings=embeddings,
@@ -187,22 +179,14 @@ def initialize_rag(
             search_kwargs={"k": config["retriever_k"]}
         )
 
-    # LLM
-        if use_local_llm:
-            base_url = ollama_base_url or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-            model = config["model_name"] or os.getenv("OLLAMA_MODEL", "mistral")
-            print(f"[RAG] Using local Ollama model: {model} at {base_url}")
-            llm = ChatOllama(
-                base_url=base_url,
-                model=model
-            )
-        else:
-            llm = ChatGroq(
-                groq_api_key=groq_api_key,
-                model_name=config["model_name"]
-            )
+        base_url = ollama_base_url or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+        model = config["model_name"]
+        print(f"[RAG] Using Ollama model: {model} at {base_url}")
+        llm = ChatOllama(
+            base_url=base_url,
+            model=model,
+        )
 
-    # Prompt
         system_prompt = (
             "You are an assistant for question-answering tasks. "
             "Use the retrieved context to answer. "

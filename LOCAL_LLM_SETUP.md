@@ -1,7 +1,7 @@
 # Local LLM Setup Guide with Ollama
 
-## Problem
-You hit the Groq API rate limit (6000 TPM). Using a local LLM provides unlimited inference at the cost of speed.
+## Overview
+This project uses a **local LLM via Ollama** for RAG. Inference runs on your machine (no cloud LLM API key required).
 
 ## Prerequisites
 - **RAM**: 8GB minimum, 16GB+ recommended
@@ -69,24 +69,19 @@ pip install langchain-ollama
 
 ### 5. Run Your Application
 
-Your code is already updated! It now:
-- Uses local Ollama by default
-- Falls back to Groq if you prefer
+Run the app (Ollama must be running):
 
-**Option A: Use Local Model (Default)**
 ```bash
 python main.py
 ```
 
-The system will use Mistral by default. To use a different model:
+The default model name is `mistral` unless you set `OLLAMA_MODEL`. To use a different model:
+
 ```bash
 export OLLAMA_MODEL=neural-chat
 export OLLAMA_BASE_URL=http://localhost:11434
 python main.py
 ```
-
-**Option B: Switch to Groq Again**
-Modify `main.py` to pass `use_local_llm=False` to `initialize_rag()`
 
 ## Performance Expectations
 
@@ -95,7 +90,6 @@ Modify `main.py` to pass `use_local_llm=False` to `initialize_rag()`
 |-------|-----------|-----------|-----------|
 | Mistral 7B | 3-5 tok/s | 20-50 tok/s | ~100-150 |
 | Neural-Chat 7B | 2-4 tok/s | 15-40 tok/s | ~50-100 |
-| Groq (llama-3.1-8b) | N/A (remote) | N/A | **600+ tok/s** |
 
 **Note**: Local models are 4-10x slower but unlimited throughput.
 
@@ -138,7 +132,6 @@ export RAG_RETRIEVER_K=4
   - Using GPU if available (NVIDIA/AMD)
   - Reducing concurrent requests
   - Using smaller batches
-  - Switching back to Groq for production
 
 ## GPU Support
 
@@ -161,42 +154,16 @@ ollama serve
 **macOS (Metal):**
 Automatically enabled on M1/M2/M3 chips
 
-## Switching Back to Groq
+## Cost
 
-If you want to use Groq again:
+- **Local LLM (Ollama)**: no per-token API cost (electricity only for your hardware).
 
-1. Export API key:
-```bash
-export GROQ_API_KEY=your_key_here
-```
+## Recommended setup
 
-2. Modify initialization (in your caller code):
-```python
-initialize_rag(
-    pdf_paths=pdf_files,
-    groq_api_key=os.getenv("GROQ_API_KEY"),
-    use_local_llm=False  # Switch to Groq
-)
-```
+For the distributed load-balancing simulation with multiple workers:
 
-## Cost Analysis
-
-- **Local LLM**: $0 (electricity only, ~$0.10-0.50/day for laptop CPU)
-- **Groq (on_demand)**: ~$0.50-2.00 per 1M tokens (varies by model)
-
-## Recommended Setup for Your Use Case
-
-For your distributed system with 4 workers and 100+ concurrent clients:
-
-**Development/Testing:**
-- Use local Ollama (mistral)
-- 1-2 concurrent requests per worker
-- Latency won't matter much
-
-**Production:**
-- Keep Groq (better latency and throughput)
-- Or use Ollama cluster with multiple servers
-- Or use GPU-accelerated Ollama
+- Use Ollama with a model that fits your RAM (for example `mistral`).
+- For heavier load, run Ollama with GPU acceleration or spread inference across machines.
 
 ## Next Steps
 
@@ -205,4 +172,4 @@ For your distributed system with 4 workers and 100+ concurrent clients:
 3. Pull model: `ollama pull mistral`
 4. Run app: `python main.py`
 
-That's it! Your RAG system will now use local Ollama instead of Groq.
+That's it! The RAG stack talks to Ollama at `OLLAMA_BASE_URL` using `OLLAMA_MODEL`.

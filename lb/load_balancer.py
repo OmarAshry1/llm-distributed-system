@@ -2,6 +2,7 @@ import threading
 import time
 
 from common.models import Response
+from common.quiet import dprint
 
 
 class LoadBalancer:
@@ -38,12 +39,12 @@ class LoadBalancer:
             worker.increment_load()
 
             try:
-                print(f"[LB] Client {client_id}: Worker {worker.id} | Load={worker.active_connections}")
+                dprint(f"[LB] Client {client_id}: Worker {worker.id} | Load={worker.active_connections}")
                 response = worker.process(request)
                 response.attempts = attempts
                 return response
             except Exception as error:
-                print(f"[LB] Worker {worker.id} failed request {request.id}: {error}")
+                dprint(f"[LB] Worker {worker.id} failed request {request.id}: {error}")
                 with self.session_lock:
                     if self.session_map.get(client_id) is worker:
                         del self.session_map[client_id]
@@ -121,5 +122,5 @@ class LoadBalancer:
         with self.session_lock:
             self.strategy = new_strategy
 
-        print(f"[LB] Strategy updated to: {type(new_strategy).__name__}")
+        dprint(f"[LB] Strategy updated to: {type(new_strategy).__name__}")
         

@@ -1,0 +1,41 @@
+﻿[Config] --skip-rag-init: skipping PDF validation and RAG vector DB setup.
+[Config] Running load test: users=6, requests_per_user=1, workers=4, worker_capacity=8, strategy=round_robin, max_retries=2
+[Scheduler] Dispatching request 0_0
+[LB] Client 0: Worker 0 | Load=1
+[Worker 0] Processing request 0_0
+[Scheduler] Dispatching request 1_0
+[LB] Client 1: Worker 1 | Load=1
+[Worker 1] Processing request 1_0
+[Scheduler] Dispatching request 2_0
+[LB] Client 2: Worker 2 | Load=1
+[Worker 2] Processing request 2_0
+[Scheduler] Dispatching request 3_0
+[LB] Client 3: Worker 3 | Load=1
+[Worker 3] Processing request 3_0
+[Scheduler] Dispatching request 4_0
+[LB] Client 4: Worker 0 | Load=2
+[Worker 0] Processing request 4_0
+[Scheduler] Dispatching request 5_0
+[LB] Client 5: Worker 1 | Load=2
+[Worker 1] Processing request 5_0
+[Client 0] Response(id='0_0', result='[mock-llm] session=client_0 query_chars=22', latency=0.0038793087005615234, worker_id=0, success=True, error=None, attempts=1)
+[Client 1] Response(id='1_0', result='[mock-llm] session=client_1 query_chars=22', latency=0.0036363601684570312, worker_id=1, success=True, error=None, attempts=1)
+[Client 2] Response(id='2_0', result='[mock-llm] session=client_2 query_chars=22', latency=0.0032749176025390625, worker_id=2, success=True, error=None, attempts=1)
+[Client 3] Response(id='3_0', result='[mock-llm] session=client_3 query_chars=22', latency=0.003099679946899414, worker_id=3, success=True, error=None, attempts=1)
+[Client 4] Response(id='4_0', result='[mock-llm] session=client_4 query_chars=22', latency=0.002900838851928711, worker_id=0, success=True, error=None, attempts=1)
+[Client 5] Response(id='5_0', result='[mock-llm] session=client_5 query_chars=22', latency=0.0026578903198242188, worker_id=1, success=True, error=None, attempts=1)
+
+[Metrics] Summary
+[Metrics] total_requests: 6
+[Metrics] successful_requests: 6
+[Metrics] failed_requests: 0
+[Metrics] total_attempts: 6
+[Metrics] duration_seconds: 0.0058
+[Metrics] throughput_rps: 1025.8784
+[Metrics] avg_latency_seconds: 0.0032
+[Metrics] p95_latency_seconds: 0.0036
+[Metrics] min_latency_seconds: 0.0027
+[Metrics] max_latency_seconds: 0.0039
+[Metrics] per_worker_requests: {0: 2, 1: 2, 2: 1, 3: 1}
+[Metrics] worker_utilization_percent: {0: 13.98, 1: 12.96, 2: 6.74, 3: 6.38}
+[Health] {0: {'alive': True, 'active_connections': 0, 'queue_length': 0, 'utilization_percent': 13.63}, 1: {'alive': True, 'active_connections': 0, 'queue_length': 0, 'utilization_percent': 12.65}, 2: {'alive': True, 'active_connections': 0, 'queue_length': 0, 'utilization_percent': 6.58}, 3: {'alive': True, 'active_connections': 0, 'queue_length': 0, 'utilization_percent': 6.23}}

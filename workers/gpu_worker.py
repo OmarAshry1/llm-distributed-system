@@ -1,6 +1,7 @@
 import time
 import threading
 from common.models import Response
+from common.quiet import dprint
 
 
 class Worker:
@@ -20,7 +21,7 @@ class Worker:
         if not self.is_alive:
             raise RuntimeError(f"Worker {self.id} is down")
 
-        print(f"[Worker {self.id}] Processing request {request.id}")
+        dprint(f"[Worker {self.id}] Processing request {request.id}")
 
         # Session persistence based on client identity to maintain context across requests
         session_id = f"client_{request.client_id}"

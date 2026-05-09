@@ -2,6 +2,7 @@ import threading
 import time
 from common.models import Request
 from common.metrics import MetricsCollector
+from common.quiet import dprint
 
 def simulate_user(scheduler, user_id, requests_per_user=3, metrics=None):
     for i in range(requests_per_user):
@@ -13,7 +14,7 @@ def simulate_user(scheduler, user_id, requests_per_user=3, metrics=None):
         response = scheduler.handle_request(req)
         if metrics:
             metrics.record(response)
-        print(f"[Client {user_id}] {response}")
+        dprint(f"[Client {user_id}] {response}")
 
 def run_load_test(scheduler, num_users=100, requests_per_user=3, metrics=None, workers=None):
     metrics = metrics or MetricsCollector()
