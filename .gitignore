@@ -21,3 +21,5 @@ dist/
 *.index
 *.pkl
 rag/chroma_db/
+
+ollama.log
