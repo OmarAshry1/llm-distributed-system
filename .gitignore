@@ -23,3 +23,5 @@ dist/
 rag/chroma_db/
 
 ollama.log
+
+*.docx

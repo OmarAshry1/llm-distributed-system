@@ -10,6 +10,7 @@ class Worker:
         self.is_alive = True   # used by load balancer health check
         self.active_connections = 0      # used by Least Connections strategy
         self.capacity = max(1, capacity)
+        self._capacity_slots = threading.Semaphore(self.capacity)
         self.max_queue_length = 0
         self.total_busy_time = 0.0
         self.started_at = time.time()
@@ -17,28 +18,35 @@ class Worker:
 
     def process(self, request):
         start = time.time()
+        busy_start = None
 
         if not self.is_alive:
             raise RuntimeError(f"Worker {self.id} is down")
 
-        dprint(f"[Worker {self.id}] Processing request {request.id}")
+        self._capacity_slots.acquire()
+        try:
+            busy_start = time.time()
+            dprint(f"[Worker {self.id}] Processing request {request.id}")
 
-        # Session persistence based on client identity to maintain context across requests
-        session_id = f"client_{request.client_id}"
+            # Session persistence based on client identity to maintain context across requests
+            session_id = f"client_{request.client_id}"
 
-        from llm.inference import run_llm
+            from llm.inference import run_llm
 
-        result = run_llm(
-            request.query,
-            session_id = session_id
-        )
+            result = run_llm(
+                request.query,
+                session_id=session_id
+            )
 
-        if not self.is_alive:
-            raise RuntimeError(f"Worker {self.id} failed while processing request {request.id}")
+            if not self.is_alive:
+                raise RuntimeError(f"Worker {self.id} failed while processing request {request.id}")
+        finally:
+            if busy_start is not None:
+                with self._lock:
+                    self.total_busy_time += time.time() - busy_start
+            self._capacity_slots.release()
 
         latency = time.time() - start
-        with self._lock:
-            self.total_busy_time += latency
 
         return Response(
             id=request.id,

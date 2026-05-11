@@ -64,6 +64,33 @@ def parse_pdf_paths(raw_paths):
     ]
 
 
+def parse_worker_capacities(raw_capacities):
+    if not raw_capacities:
+        return []
+
+    capacities = []
+    for raw in raw_capacities.split(","):
+        raw = raw.strip()
+        if not raw:
+            continue
+        try:
+            capacities.append(positive_int(raw))
+        except (ValueError, argparse.ArgumentTypeError):
+            print(f"[Config] Ignoring invalid worker capacity {raw!r}.")
+    return capacities
+
+
+def build_workers(num_workers, default_capacity):
+    from workers.gpu_worker import Worker
+
+    configured = parse_worker_capacities(os.getenv("WORKER_CAPACITIES", ""))
+    if configured:
+        print(f"[Config] Using heterogeneous worker capacities: {configured}")
+        return [Worker(i, capacity=capacity) for i, capacity in enumerate(configured)]
+
+    return [Worker(i, capacity=default_capacity) for i in range(num_workers)]
+
+
 def resolve_existing_pdf_paths(raw_paths):
     existing_paths = []
     missing_paths = []
@@ -167,7 +194,7 @@ def main():
         return 1
 
     try:
-        from workers.gpu_worker import Worker
+        import workers.gpu_worker
     except ModuleNotFoundError as error:
         print(f"[Config] Missing Python dependency: {error.name}")
         print("[Config] Install requirements with: py -m pip install -r requirements.txt")
@@ -185,7 +212,7 @@ def main():
         print(f"[RAG] Failed to initialize: {error}")
         return 1
 
-    workers = [Worker(i, capacity=args.worker_capacity) for i in range(args.num_workers)]
+    workers = build_workers(args.num_workers, args.worker_capacity)
     strategy = build_strategy(args.strategy, args.load_threshold)
     load_balancer = LoadBalancer(workers, strategy, max_retries=args.max_retries)
     scheduler = Scheduler(load_balancer)
@@ -194,8 +221,8 @@ def main():
         "[Config] Running load test: "
         f"users={args.num_users}, "
         f"requests_per_user={args.requests_per_user}, "
-        f"workers={args.num_workers}, "
-        f"worker_capacity={args.worker_capacity}, "
+        f"workers={len(workers)}, "
+        f"worker_capacities={[worker.capacity for worker in workers]}, "
         f"strategy={args.strategy}, "
         f"max_retries={args.max_retries}"
     )

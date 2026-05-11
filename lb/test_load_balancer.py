@@ -11,10 +11,11 @@ class Request:
 
 
 class DummyWorker:
-    def __init__(self, worker_id, fail=False, fail_after=False):
+    def __init__(self, worker_id, fail=False, fail_after=False, capacity=8):
         self.id = worker_id
         self.is_alive = True
         self.active_connections = 0
+        self.capacity = capacity
         self.handled = 0
         self.fail = fail
         self.fail_after = fail_after
@@ -121,3 +122,12 @@ def test_load_aware_prefers_worker_under_threshold():
     workers[1].active_connections = 2
 
     assert LoadAware(threshold=5).get_worker(workers).id == 1
+
+
+def test_load_aware_prefers_lower_capacity_ratio():
+    small = DummyWorker(0, capacity=2)
+    large = DummyWorker(1, capacity=8)
+    small.active_connections = 1
+    large.active_connections = 2
+
+    assert LoadAware(threshold=8).get_worker([small, large]).id == 1

@@ -1,0 +1,12 @@
+.git/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+pytest-cache-files-*/
+.env
+.env.local
+rag/chroma_db/
+reports/*.json
+reports/*.md
+reports/*.txt
+*.docx

@@ -68,10 +68,16 @@ Environment/config options:
 - `NUM_WORKERS`
 - `LB_STRATEGY`
 - `WORKER_CAPACITY`
+- `WORKER_CAPACITIES` (optional comma-separated capacities, e.g. `4,8,8,16`)
 - `MAX_RETRIES`
 - `PDF_PATHS`
 - `OLLAMA_BASE_URL`
 - `OLLAMA_MODEL`
+- `OLLAMA_KEEP_ALIVE`
+- `OLLAMA_NUM_PREDICT`
+- `OLLAMA_NUM_CTX`
+- `OLLAMA_NUM_THREAD`
+- `OLLAMA_TEMPERATURE`
 - `RAG_CHUNK_SIZE`
 - `RAG_CHUNK_OVERLAP`
 - `RAG_RETRIEVER_K`
@@ -105,6 +111,18 @@ Example end-to-end RAG + Ollama run (four workers, eight simulated GPUs capacity
 py main.py --num-users 500 --requests-per-user 3 --strategy least_connections --quiet --metrics-json reports\run.json
 ```
 
+Recommended real-LLM benchmark settings for an 8 GB VRAM machine:
+
+```powershell
+$env:OLLAMA_KEEP_ALIVE="-1"
+$env:OLLAMA_NUM_PREDICT="128"
+$env:OLLAMA_NUM_CTX="2048"
+$env:OLLAMA_TEMPERATURE="0"
+$env:RAG_RETRIEVER_K="2"
+$env:REQUESTS_PER_USER="1"
+$env:DISTRIBUTED_QUIET="1"
+```
+
 Use `LOAD_TEST_QUERIES` to make simulated users ask questions that match your PDF:
 
 ```powershell
@@ -122,6 +140,21 @@ Optional: `BENCHMARK_USER_COUNTS=50,100` to shorten runs.
 
 These runs require LangChain + Chroma dependencies, an available `data/sample.pdf`, and Ollama running with the configured `OLLAMA_MODEL`.
 Startup checks Ollama before the load test begins; if the configured model is missing, run `ollama pull <model>` or update `OLLAMA_MODEL`.
+
+Optional heterogeneous-worker scenario for evaluating adaptive routing under uneven capacity:
+
+```powershell
+$env:WORKER_CAPACITIES="4,8,8,16"
+py scripts\benchmark.py
+```
+
+Focused fault-tolerance demo:
+
+```powershell
+py scripts\fault_tolerance_demo.py --num-users 20 --requests-per-user 1 --strategy load_aware --fail-worker 0 --fail-after 0.5 --metrics-json reports\fault_tolerance_demo.json
+```
+
+Docker GPU deployment scaffold is provided in `docker-compose.gpu.yml` and `docker/README.md`. It is intended as a path toward real multi-node GPU deployment; on a single 8 GB VRAM GPU, multiple Ollama containers may compete for memory.
 
 ## Notes
 

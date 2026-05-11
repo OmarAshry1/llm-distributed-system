@@ -30,6 +30,24 @@ def test_resolve_config_reads_ollama_model_env(monkeypatch, reset_rag_state):
     assert cfg["model_name"] == "test-model-xyz"
 
 
+def test_resolve_config_reads_ollama_tuning_env(monkeypatch, reset_rag_state):
+    monkeypatch.setenv("OLLAMA_NUM_PREDICT", "128")
+    monkeypatch.setenv("OLLAMA_NUM_CTX", "2048")
+    monkeypatch.setenv("OLLAMA_NUM_THREAD", "8")
+    monkeypatch.setenv("OLLAMA_TEMPERATURE", "0")
+    monkeypatch.setenv("OLLAMA_KEEP_ALIVE", "-1")
+    from rag import rag_engine as re
+
+    cfg = re._resolve_config(None, None, None, None, None, None, False)
+    assert re._ollama_options(cfg) == {
+        "num_predict": 128,
+        "num_ctx": 2048,
+        "num_thread": 8,
+        "temperature": 0.0,
+        "keep_alive": "-1",
+    }
+
+
 def test_check_ollama_model_available_rejects_missing_model(monkeypatch, reset_rag_state):
     from rag import rag_engine as re
 

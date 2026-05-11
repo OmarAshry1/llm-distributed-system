@@ -19,6 +19,14 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories import ChatMessageHistory
 
+try:
+    from chromadb.config import Settings as ChromaSettings
+except Exception:  # pragma: no cover - Chroma may be absent in lightweight test envs.
+    ChromaSettings = None
+
+
+os.environ.setdefault("ANONYMIZED_TELEMETRY", "False")
+
 # Global RAG state. Initialization happens once before workers start serving requests.
 vectorstore = None
 rag_chain = None
@@ -44,6 +52,33 @@ def _env_int(name, default):
     except ValueError:
         print(f"[RAG] Invalid {name}={value!r}; using default {default}.")
         return default
+
+
+def _env_optional_int(name):
+    value = os.getenv(name)
+    if value is None or not value.strip():
+        return None
+
+    try:
+        number = int(value)
+        if number < 1:
+            raise ValueError
+        return number
+    except ValueError:
+        print(f"[RAG] Ignoring invalid {name}={value!r}; expected a positive integer.")
+        return None
+
+
+def _env_optional_float(name):
+    value = os.getenv(name)
+    if value is None or not value.strip():
+        return None
+
+    try:
+        return float(value)
+    except ValueError:
+        print(f"[RAG] Ignoring invalid {name}={value!r}; expected a number.")
+        return None
 
 
 def _env_bool(name, default=False):
@@ -73,7 +108,29 @@ def _resolve_config(
         "chunk_overlap": chunk_overlap or _env_int("RAG_CHUNK_OVERLAP", 200),
         "retriever_k": retriever_k or _env_int("RAG_RETRIEVER_K", 4),
         "force_rebuild": force_rebuild or _env_bool("RAG_FORCE_REBUILD"),
+        "ollama_num_predict": _env_optional_int("OLLAMA_NUM_PREDICT"),
+        "ollama_num_ctx": _env_optional_int("OLLAMA_NUM_CTX"),
+        "ollama_num_thread": _env_optional_int("OLLAMA_NUM_THREAD"),
+        "ollama_temperature": _env_optional_float("OLLAMA_TEMPERATURE"),
+        "ollama_keep_alive": os.getenv("OLLAMA_KEEP_ALIVE") or None,
     }
+
+
+def _ollama_options(config):
+    options = {
+        "num_predict": config["ollama_num_predict"],
+        "num_ctx": config["ollama_num_ctx"],
+        "num_thread": config["ollama_num_thread"],
+        "temperature": config["ollama_temperature"],
+        "keep_alive": config["ollama_keep_alive"],
+    }
+    return {key: value for key, value in options.items() if value is not None}
+
+
+def _chroma_settings():
+    if ChromaSettings is None:
+        return None
+    return ChromaSettings(anonymized_telemetry=False)
 
 
 def _pdf_fingerprint(pdf_paths):
@@ -104,6 +161,7 @@ def _build_or_load_vectorstore(pdf_paths, embeddings, splitter, persist_director
         return Chroma(
             persist_directory=str(collection_dir),
             embedding_function=embeddings,
+            client_settings=_chroma_settings(),
         )
 
     print("[RAG] Building vector DB from PDF documents")
@@ -118,6 +176,7 @@ def _build_or_load_vectorstore(pdf_paths, embeddings, splitter, persist_director
         documents=splits,
         embedding=embeddings,
         persist_directory=str(collection_dir),
+        client_settings=_chroma_settings(),
     )
 
     persist = getattr(store, "persist", None)
@@ -218,9 +277,13 @@ def initialize_rag(
         model = config["model_name"]
         _check_ollama_model_available(base_url, model)
         print(f"[RAG] Using Ollama model: {model} at {base_url}")
+        ollama_options = _ollama_options(config)
+        if ollama_options:
+            print(f"[RAG] Ollama options: {ollama_options}")
         llm = ChatOllama(
             base_url=base_url,
             model=model,
+            **ollama_options,
         )
 
         system_prompt = (

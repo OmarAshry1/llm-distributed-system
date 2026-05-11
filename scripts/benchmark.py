@@ -74,9 +74,8 @@ def main() -> int:
 
     from client.load_generator import run_load_test
     from lb.load_balancer import LoadBalancer
-    from main import build_strategy
+    from main import build_strategy, build_workers
     from master.scheduler import Scheduler
-    from workers.gpu_worker import Worker
 
     try:
         from rag.rag_engine import initialize_rag
@@ -106,7 +105,7 @@ def main() -> int:
     for num_users in user_counts:
         for strategy_name in strategies:
             print(f"Scenario: users={num_users} strategy={strategy_name}", flush=True)
-            workers = [Worker(i, capacity=worker_capacity) for i in range(num_workers)]
+            workers = build_workers(num_workers, worker_capacity)
             strategy = build_strategy(strategy_name, load_threshold)
             lb = LoadBalancer(workers, strategy, max_retries=max_retries)
             scheduler = Scheduler(lb)

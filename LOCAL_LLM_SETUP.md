@@ -108,6 +108,34 @@ export OLLAMA_BASE_URL=http://localhost:11434
 export RAG_CHUNK_SIZE=1000
 export RAG_CHUNK_OVERLAP=200
 export RAG_RETRIEVER_K=4
+
+# Ollama generation/performance tuning
+export OLLAMA_KEEP_ALIVE=-1
+export OLLAMA_NUM_PREDICT=128
+export OLLAMA_NUM_CTX=2048
+export OLLAMA_TEMPERATURE=0
+```
+
+For 100/500/1000-user real-LLM evaluation on an 8 GB VRAM machine, use short responses and a small retrieval context:
+
+```bash
+export OLLAMA_MODEL=gemma:2b
+export OLLAMA_KEEP_ALIVE=-1
+export OLLAMA_NUM_PREDICT=128
+export OLLAMA_NUM_CTX=2048
+export OLLAMA_TEMPERATURE=0
+export RAG_RETRIEVER_K=2
+export REQUESTS_PER_USER=1
+export DISTRIBUTED_QUIET=1
+export BENCHMARK_USER_COUNTS=100,500,1000
+python scripts/benchmark.py
+```
+
+Round robin can be best in a homogeneous single-GPU setup because every simulated worker ultimately shares the same Ollama backend. To evaluate adaptive strategies under uneven capacity, run an additional scenario:
+
+```bash
+export WORKER_CAPACITIES=4,8,8,16
+python scripts/benchmark.py
 ```
 
 ## Troubleshooting
@@ -153,6 +181,18 @@ ollama serve
 
 **macOS (Metal):**
 Automatically enabled on M1/M2/M3 chips
+
+## Docker GPU Scaffold
+
+The repository includes `docker-compose.gpu.yml` as a deployment scaffold. On Linux with NVIDIA Container Toolkit:
+
+```bash
+docker compose -f docker-compose.gpu.yml up ollama-gpu0
+docker compose -f docker-compose.gpu.yml exec ollama-gpu0 ollama pull gemma:2b
+docker compose -f docker-compose.gpu.yml run --rm app
+```
+
+With only one 8 GB VRAM GPU, this should be documented as a single-GPU deployment path. A true GPU cluster would run separate Ollama endpoints on separate GPUs or machines and route workers to those endpoints.
 
 ## Cost
 

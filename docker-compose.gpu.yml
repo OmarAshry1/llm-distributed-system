@@ -1,0 +1,40 @@
+services:
+  ollama-gpu0:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-gpu0:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  app:
+    build: .
+    depends_on:
+      - ollama-gpu0
+    environment:
+      PDF_PATHS: data/sample.pdf
+      OLLAMA_BASE_URL: http://ollama-gpu0:11434
+      OLLAMA_MODEL: gemma:2b
+      OLLAMA_KEEP_ALIVE: "-1"
+      OLLAMA_NUM_PREDICT: "128"
+      OLLAMA_NUM_CTX: "2048"
+      OLLAMA_TEMPERATURE: "0"
+      RAG_RETRIEVER_K: "2"
+      DISTRIBUTED_QUIET: "1"
+      NUM_USERS: "100"
+      REQUESTS_PER_USER: "1"
+      LB_STRATEGY: load_aware
+    volumes:
+      - ./data:/app/data:ro
+      - ./reports:/app/reports
+      - ./rag/chroma_db:/app/rag/chroma_db
+    command: ["python", "main.py", "--quiet", "--metrics-json", "reports/docker_run.json"]
+
+volumes:
+  ollama-gpu0:
