@@ -77,6 +77,7 @@ Environment/config options:
 - `RAG_RETRIEVER_K`
 - `RAG_PERSIST_DIR`
 - `RAG_FORCE_REBUILD`
+- `LOAD_TEST_QUERIES` (`||`-separated query pool for simulated users)
 
 ## Tests
 
@@ -102,6 +103,13 @@ Example end-to-end RAG + Ollama run (four workers, eight simulated GPUs capacity
 
 ```powershell
 py main.py --num-users 500 --requests-per-user 3 --strategy least_connections --quiet --metrics-json reports\run.json
+```
+
+Use `LOAD_TEST_QUERIES` to make simulated users ask questions that match your PDF:
+
+```powershell
+$env:LOAD_TEST_QUERIES="What failure model does the paper assume?||How does the protocol recover after coordinator failure?||What are the phases of the algorithm?"
+py main.py --num-users 5 --requests-per-user 1 --strategy load_aware
 ```
 
 Full scenario matrix (**100 / 500 / 1000 users**, three strategies), JSON per scenario, and **`reports/performance_tables.md`** (latency avg/p95, throughput, failures, per-worker counts, simulated GPU utilization):

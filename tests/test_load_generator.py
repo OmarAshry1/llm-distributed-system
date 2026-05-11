@@ -6,9 +6,11 @@ from common.metrics import MetricsCollector
 class CountingScheduler:
     def __init__(self):
         self.calls = []
+        self.queries = []
 
     def handle_request(self, request):
         self.calls.append(request.id)
+        self.queries.append(request.query)
         return Response(
             id=request.id,
             worker_id=0,
@@ -33,3 +35,15 @@ def test_simulate_user_records_metrics():
     s = m.summary()
     assert s["total_requests"] == 2
     assert s["successful_requests"] == 2
+
+
+def test_run_load_test_uses_supplied_query_pool():
+    sched = CountingScheduler()
+    run_load_test(
+        sched,
+        num_users=3,
+        requests_per_user=1,
+        workers=None,
+        queries=["alpha question", "beta question"],
+    )
+    assert sched.queries == ["alpha question", "beta question", "alpha question"]
