@@ -28,3 +28,35 @@ def test_resolve_config_reads_ollama_model_env(monkeypatch, reset_rag_state):
 
     cfg = re._resolve_config(None, None, None, None, None, None, False)
     assert cfg["model_name"] == "test-model-xyz"
+
+
+def test_check_ollama_model_available_rejects_missing_model(monkeypatch, reset_rag_state):
+    from rag import rag_engine as re
+
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def read(self):
+            return b'{"models": [{"name": "mistral:latest"}]}'
+
+    monkeypatch.setattr(re, "urlopen", lambda url, timeout: FakeResponse())
+
+    with pytest.raises(RuntimeError, match="gemma:2b.*not installed"):
+        re._check_ollama_model_available("http://localhost:11434", "gemma:2b")
+
+
+def test_query_rag_with_memory_propagates_chain_errors(monkeypatch, reset_rag_state):
+    from rag import rag_engine as re
+
+    class BrokenChain:
+        def invoke(self, payload, config):
+            raise RuntimeError("model missing")
+
+    monkeypatch.setattr(re, "get_conversational_chain", lambda: BrokenChain())
+
+    with pytest.raises(RuntimeError, match="model missing"):
+        re.query_rag_with_memory("hello", "session-1")

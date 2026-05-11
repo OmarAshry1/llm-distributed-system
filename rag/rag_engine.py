@@ -1,7 +1,11 @@
 import hashlib
 import os
 import threading
+import json
 from pathlib import Path
+from urllib.error import HTTPError, URLError
+from urllib.parse import urljoin
+from urllib.request import urlopen
 
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -123,6 +127,37 @@ def _build_or_load_vectorstore(pdf_paths, embeddings, splitter, persist_director
     return store
 
 
+def _check_ollama_model_available(base_url, model_name):
+    tags_url = urljoin(base_url.rstrip("/") + "/", "api/tags")
+    try:
+        with urlopen(tags_url, timeout=5) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except HTTPError as error:
+        raise RuntimeError(
+            f"Ollama server at {base_url} returned HTTP {error.code} while checking installed models."
+        ) from error
+    except URLError as error:
+        raise RuntimeError(
+            f"Cannot connect to Ollama at {base_url}. Start Ollama with `ollama serve`."
+        ) from error
+    except TimeoutError as error:
+        raise RuntimeError(
+            f"Timed out connecting to Ollama at {base_url}. Check that Ollama is running."
+        ) from error
+
+    installed = {
+        item.get("name") or item.get("model")
+        for item in payload.get("models", [])
+    }
+    installed.discard(None)
+    if model_name not in installed:
+        available = ", ".join(sorted(installed)) or "none"
+        raise RuntimeError(
+            f"Ollama model {model_name!r} is not installed. "
+            f"Run `ollama pull {model_name}` or set OLLAMA_MODEL to one of: {available}."
+        )
+
+
 # initialize el rag - run once before serving requests.
 # Workflow: PDFs -> chunks -> embeddings -> vector DB -> retriever -> LLM chain.
 def initialize_rag(
@@ -181,6 +216,7 @@ def initialize_rag(
 
         base_url = ollama_base_url or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
         model = config["model_name"]
+        _check_ollama_model_available(base_url, model)
         print(f"[RAG] Using Ollama model: {model} at {base_url}")
         llm = ChatOllama(
             base_url=base_url,
@@ -232,14 +268,11 @@ def get_conversational_chain():
 
 # invoking el llm aw el inference
 def query_rag_with_memory(query, session_id):
-    try:
-        chain = get_conversational_chain()
+    chain = get_conversational_chain()
 
-        result = chain.invoke(
-            {"input": query},
-            config={"configurable": {"session_id": session_id}}
-        )
+    result = chain.invoke(
+        {"input": query},
+        config={"configurable": {"session_id": session_id}}
+    )
 
-        return result.get("answer", "I do not know.")
-    except Exception as error:
-        return f"RAG/LLM error: {error}"
+    return result.get("answer", "I do not know.")

@@ -113,6 +113,7 @@ py scripts\benchmark.py
 Optional: `BENCHMARK_USER_COUNTS=50,100` to shorten runs.
 
 These runs require LangChain + Chroma dependencies, an available `data/sample.pdf`, and Ollama running with the configured `OLLAMA_MODEL`.
+Startup checks Ollama before the load test begins; if the configured model is missing, run `ollama pull <model>` or update `OLLAMA_MODEL`.
 
 ## Notes
 
