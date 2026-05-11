@@ -67,6 +67,24 @@ def test_check_ollama_model_available_rejects_missing_model(monkeypatch, reset_r
         re._check_ollama_model_available("http://localhost:11434", "gemma:2b")
 
 
+def test_check_ollama_model_available_accepts_latest_tag(monkeypatch, reset_rag_state):
+    from rag import rag_engine as re
+
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def read(self):
+            return b'{"models": [{"name": "mistral:latest"}]}'
+
+    monkeypatch.setattr(re, "urlopen", lambda url, timeout: FakeResponse())
+
+    re._check_ollama_model_available("http://localhost:11434", "mistral")
+
+
 def test_query_rag_with_memory_propagates_chain_errors(monkeypatch, reset_rag_state):
     from rag import rag_engine as re
 

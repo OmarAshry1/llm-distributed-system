@@ -11,9 +11,21 @@ import json
 import os
 import subprocess
 import sys
+import time
+import warnings
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+warnings.filterwarnings(
+    "ignore",
+    message=".*RunnableWithMessageHistory is deprecated.*",
+    category=Warning,
+)
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
 
 
 def _ensure_sample_pdf() -> Path:
@@ -68,6 +80,9 @@ def main() -> int:
     os.chdir(ROOT)
     sys.path.insert(0, str(ROOT))
 
+    if load_dotenv:
+        load_dotenv(ROOT / ".env")
+
     os.environ.setdefault("DISTRIBUTED_QUIET", "1")
 
     _ensure_sample_pdf()
@@ -101,23 +116,52 @@ def main() -> int:
     user_counts = [int(x.strip()) for x in raw.split(",") if x.strip()]
     strategies = ["round_robin", "least_connections", "load_aware"]
     rows: list[tuple[int, str, dict]] = []
+    progress_interval = int(os.environ.get("BENCHMARK_PROGRESS_INTERVAL", "30"))
 
     for num_users in user_counts:
         for strategy_name in strategies:
-            print(f"Scenario: users={num_users} strategy={strategy_name}", flush=True)
+            scenario_started = time.time()
+            expected_requests = num_users * requests_per_user
+            print(
+                f"Scenario: users={num_users} strategy={strategy_name} "
+                f"requests={expected_requests}",
+                flush=True,
+            )
             workers = build_workers(num_workers, worker_capacity)
             strategy = build_strategy(strategy_name, load_threshold)
             lb = LoadBalancer(workers, strategy, max_retries=max_retries)
             scheduler = Scheduler(lb)
+
+            def progress(metrics):
+                counts = metrics.counts()
+                elapsed = time.time() - scenario_started
+                print(
+                    "[benchmark] "
+                    f"users={num_users} strategy={strategy_name} "
+                    f"elapsed={elapsed:.1f}s "
+                    f"completed={counts['total_requests']}/{expected_requests} "
+                    f"attempts={counts['total_attempts']}",
+                    flush=True,
+                )
+
             summary = run_load_test(
                 scheduler,
                 num_users=num_users,
                 requests_per_user=requests_per_user,
                 workers=workers,
+                progress_callback=progress,
+                progress_interval=progress_interval,
             )
             json_path = reports / f"metrics_u{num_users}_{strategy_name}.json"
             json_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
             rows.append((num_users, strategy_name, summary))
+            print(
+                f"[benchmark] completed users={num_users} strategy={strategy_name} "
+                f"duration={summary['duration_seconds']}s "
+                f"throughput={summary['throughput_rps']} rps "
+                f"p95={summary['p95_latency_seconds']}s",
+                flush=True,
+            )
 
     md_path = reports / "performance_tables.md"
     _write_markdown(rows, md_path)

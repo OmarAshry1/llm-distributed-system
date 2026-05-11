@@ -2,6 +2,7 @@ import hashlib
 import os
 import threading
 import json
+import warnings
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin
@@ -26,6 +27,11 @@ except Exception:  # pragma: no cover - Chroma may be absent in lightweight test
 
 
 os.environ.setdefault("ANONYMIZED_TELEMETRY", "False")
+warnings.filterwarnings(
+    "ignore",
+    message=".*RunnableWithMessageHistory.*deprecated.*",
+    category=Warning,
+)
 
 # Global RAG state. Initialization happens once before workers start serving requests.
 vectorstore = None
@@ -209,7 +215,11 @@ def _check_ollama_model_available(base_url, model_name):
         for item in payload.get("models", [])
     }
     installed.discard(None)
-    if model_name not in installed:
+    accepted_names = {model_name}
+    if ":" not in model_name:
+        accepted_names.add(f"{model_name}:latest")
+
+    if installed.isdisjoint(accepted_names):
         available = ", ".join(sorted(installed)) or "none"
         raise RuntimeError(
             f"Ollama model {model_name!r} is not installed. "

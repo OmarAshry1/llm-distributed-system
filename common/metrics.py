@@ -31,6 +31,15 @@ class MetricsCollector:
     def finish(self):
         self.finished_at = time.time()
 
+    def counts(self):
+        with self._lock:
+            return {
+                "successful_requests": self._successes,
+                "failed_requests": self._failures,
+                "total_requests": self._successes + self._failures,
+                "total_attempts": self._attempts,
+            }
+
     def summary(self, workers=None):
         finished_at = self.finished_at or time.time()
         duration = max(finished_at - self.started_at, 0.000001)

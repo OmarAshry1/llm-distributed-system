@@ -43,11 +43,26 @@ def simulate_user(scheduler, user_id, requests_per_user=3, metrics=None, queries
             metrics.record(response)
         dprint(f"[Client {user_id}] {response}")
 
-def run_load_test(scheduler, num_users=100, requests_per_user=3, metrics=None, workers=None, queries=None):
+def run_load_test(
+    scheduler,
+    num_users=100,
+    requests_per_user=3,
+    metrics=None,
+    workers=None,
+    queries=None,
+    progress_callback=None,
+    progress_interval=30,
+):
     metrics = metrics or MetricsCollector()
     metrics.started_at = time.time()
     threads = []
     queries = queries or _load_query_pool()
+    stop_progress = threading.Event()
+
+    def report_progress():
+        while not stop_progress.wait(progress_interval):
+            if progress_callback:
+                progress_callback(metrics)
 
     for i in range(num_users):
         t = threading.Thread(
@@ -57,8 +72,17 @@ def run_load_test(scheduler, num_users=100, requests_per_user=3, metrics=None, w
         threads.append(t)
         t.start()
 
+    progress_thread = None
+    if progress_callback:
+        progress_thread = threading.Thread(target=report_progress, daemon=True)
+        progress_thread.start()
+
     for t in threads:
         t.join()
+
+    stop_progress.set()
+    if progress_thread:
+        progress_thread.join(timeout=0.1)
 
     metrics.finish()
     return metrics.summary(workers=workers)
