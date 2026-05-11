@@ -27,9 +27,23 @@ OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=mistral
 ```
 
-Install [Ollama](https://ollama.com/) and pull a model (for example `ollama pull mistral`). Add the real knowledge-base PDF at `data/sample.pdf`, or point `PDF_PATHS` to the correct file.
+Install [Ollama](https://ollama.com/) and pull a model, for example:
+
+```powershell
+ollama pull mistral
+```
+
+Add the real knowledge-base PDF at `data/sample.pdf`, or point `PDF_PATHS` to the correct file.
 
 ## Run
+
+Start Ollama first:
+
+```powershell
+ollama serve
+```
+
+Then run the simulation:
 
 ```powershell
 py main.py
@@ -63,7 +77,6 @@ Environment/config options:
 - `RAG_RETRIEVER_K`
 - `RAG_PERSIST_DIR`
 - `RAG_FORCE_REBUILD`
-- `SIMULATED_LLM_DELAY`
 
 ## Tests
 
@@ -83,30 +96,23 @@ py scripts\create_sample_pdf.py
 
 ## Load testing, metrics export, and evaluation runs
 
-- **`MOCK_LLM=1`** — returns a stub from `llm/inference.py` without calling Ollama/RAG retrieval (good for throughput experiments and machines without the full RAG stack).
-- **`SIMULATED_LLM_DELAY`** — extra delay per request (seconds) to mimic slow inference.
-- **`DISTRIBUTED_QUIET=1`** — suppresses per-request LB/worker/client logs (also **`--quiet`** on `main.py`).
-- **`--skip-rag-init`** — skips PDF checks and vector DB build; use with **`MOCK_LLM=1`** if dependencies such as Chroma are unavailable.
+- **`DISTRIBUTED_QUIET=1`** suppresses per-request LB/worker/client logs (also **`--quiet`** on `main.py`).
 
-Example end-to-end load-only run (four workers, eight simulated GPUs capacity each):
+Example end-to-end RAG + Ollama run (four workers, eight simulated GPUs capacity each):
 
 ```powershell
-$env:MOCK_LLM="1"
 py main.py --num-users 500 --requests-per-user 3 --strategy least_connections --quiet --metrics-json reports\run.json
 ```
 
 Full scenario matrix (**100 / 500 / 1000 users**, three strategies), JSON per scenario, and **`reports/performance_tables.md`** (latency avg/p95, throughput, failures, per-worker counts, simulated GPU utilization):
 
 ```powershell
-$env:MOCK_LLM="1"
 py scripts\benchmark.py
 ```
 
 Optional: `BENCHMARK_USER_COUNTS=50,100` to shorten runs.
 
-With LangChain + Chroma installed and Ollama running, omit **`MOCK_LLM`** for **full LLM + RAG** latency numbers.
-
-**Sample console capture** (verbose scheduling path): see **`reports/demo_sample_run.txt`**.
+These runs require LangChain + Chroma dependencies, an available `data/sample.pdf`, and Ollama running with the configured `OLLAMA_MODEL`.
 
 ## Notes
 

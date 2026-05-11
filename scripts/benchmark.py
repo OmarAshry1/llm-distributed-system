@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Run end-to-end scenarios (100 / 500 / 1000 users × three strategies) in one process
-so RAG initializes once. Uses MOCK_LLM for reproducible load without a running Ollama server.
+Run end-to-end scenarios (100 / 500 / 1000 users x three strategies) in one process
+so RAG initializes once and every request uses the configured Ollama-backed RAG chain.
 
 Writes JSON per scenario and reports/performance_tables.md.
 """
@@ -24,24 +24,14 @@ def _ensure_sample_pdf() -> Path:
     return pdf
 
 
-def _write_markdown(
-    rows: list[tuple[int, str, dict]], path: Path, *, rag_initialized: bool
-) -> None:
-    rag_note = (
-        "Chroma vector DB and LangChain RAG were initialized once before scenarios."
-        if rag_initialized
-        else "RAG init was unavailable (missing LangChain/Chroma build); scenarios used "
-        "`MOCK_LLM` only—same load balancer and metrics path as production, without retrieval."
-    )
+def _write_markdown(rows: list[tuple[int, str, dict]], path: Path) -> None:
     lines = [
-        "# Performance tables — distributed load-balancing simulation",
+        "# Performance tables - distributed load-balancing simulation",
         "",
         "**Setup:** single process; "
-        + rag_note
-        + " "
-        "`MOCK_LLM=1` bypasses Ollama inference; "
-        "`DISTRIBUTED_QUIET=1` suppresses per-request logs; `SIMULATED_LLM_DELAY=0`. "
-        "For full LLM+RAG latency, install deps on Python 3.10/3.11, unset `MOCK_LLM`, and run Ollama.",
+        "Chroma vector DB and LangChain RAG were initialized once before scenarios. "
+        "Requests used the configured Ollama model through the RAG chain. "
+        "`DISTRIBUTED_QUIET=1` suppresses per-request logs.",
         "",
         "## Latency, throughput, failures",
         "",
@@ -78,9 +68,7 @@ def main() -> int:
     os.chdir(ROOT)
     sys.path.insert(0, str(ROOT))
 
-    os.environ.setdefault("MOCK_LLM", "1")
     os.environ.setdefault("DISTRIBUTED_QUIET", "1")
-    os.environ.setdefault("SIMULATED_LLM_DELAY", "0")
 
     _ensure_sample_pdf()
 
@@ -90,17 +78,16 @@ def main() -> int:
     from master.scheduler import Scheduler
     from workers.gpu_worker import Worker
 
-    rag_initialized = False
     try:
         from rag.rag_engine import initialize_rag
 
         initialize_rag(pdf_paths=[str(ROOT / "data" / "sample.pdf")])
-        rag_initialized = True
     except Exception as exc:
         print(
-            f"[benchmark] RAG initialization skipped ({exc!s}). "
-            "Continuing with MOCK_LLM load-only path (no vector DB)."
+            f"[benchmark] RAG initialization failed: {exc!s}\n"
+            "[benchmark] Start Ollama, pull the configured OLLAMA_MODEL, and install requirements before running this benchmark."
         )
+        return 1
 
     reports = ROOT / "reports"
     reports.mkdir(parents=True, exist_ok=True)
@@ -134,7 +121,7 @@ def main() -> int:
             rows.append((num_users, strategy_name, summary))
 
     md_path = reports / "performance_tables.md"
-    _write_markdown(rows, md_path, rag_initialized=rag_initialized)
+    _write_markdown(rows, md_path)
     print(f"Wrote {md_path}")
     return 0
 
