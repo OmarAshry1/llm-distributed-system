@@ -71,6 +71,8 @@ def _write_markdown(rows: list[tuple[int, str, dict]], path: Path) -> None:
         lines.append("")
         lines.append(f"- **per_worker_requests:** `{s.get('per_worker_requests')}`")
         lines.append(f"- **worker_utilization_percent:** `{s.get('worker_utilization_percent')}`")
+        if s.get("failure_errors"):
+            lines.append(f"- **failure_errors:** `{s.get('failure_errors')}`")
         lines.append("")
 
     path.write_text("\n".join(lines), encoding="utf-8")
@@ -159,9 +161,12 @@ def main() -> int:
                 f"[benchmark] completed users={num_users} strategy={strategy_name} "
                 f"duration={summary['duration_seconds']}s "
                 f"throughput={summary['throughput_rps']} rps "
-                f"p95={summary['p95_latency_seconds']}s",
+                f"p95={summary['p95_latency_seconds']}s "
+                f"failed={summary['failed_requests']}",
                 flush=True,
             )
+            if summary.get("failure_errors"):
+                print(f"[benchmark] failure_errors={summary['failure_errors']}", flush=True)
 
     md_path = reports / "performance_tables.md"
     _write_markdown(rows, md_path)

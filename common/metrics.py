@@ -11,6 +11,7 @@ class MetricsCollector:
         self._lock = threading.Lock()
         self._latencies = []
         self._worker_counts = Counter()
+        self._failure_errors = Counter()
         self._failures = 0
         self._successes = 0
         self._attempts = 0
@@ -23,6 +24,9 @@ class MetricsCollector:
                 self._latencies.append(response.latency)
             else:
                 self._failures += 1
+                error = getattr(response, "error", None)
+                if error:
+                    self._failure_errors[str(error)] += 1
 
             worker_id = getattr(response, "worker_id", None)
             if worker_id is not None:
@@ -78,6 +82,7 @@ class MetricsCollector:
             "max_latency_seconds": round(max_latency, 4),
             "per_worker_requests": dict(self._worker_counts),
             "worker_utilization_percent": worker_utilization,
+            "failure_errors": dict(self._failure_errors.most_common(5)),
         }
 
 
