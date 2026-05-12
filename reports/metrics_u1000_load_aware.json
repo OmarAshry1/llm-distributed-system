@@ -3,23 +3,23 @@
   "successful_requests": 1000,
   "failed_requests": 0,
   "total_attempts": 1000,
-  "duration_seconds": 700.8535,
-  "throughput_rps": 1.4268,
-  "avg_latency_seconds": 352.1364,
-  "p95_latency_seconds": 664.7862,
-  "min_latency_seconds": 1.0577,
-  "max_latency_seconds": 699.6659,
+  "duration_seconds": 681.2011,
+  "throughput_rps": 1.468,
+  "avg_latency_seconds": 341.7796,
+  "p95_latency_seconds": 645.6546,
+  "min_latency_seconds": 1.8086,
+  "max_latency_seconds": 680.2029,
   "per_worker_requests": {
     "2": 250,
-    "0": 250,
     "3": 250,
-    "1": 250
+    "1": 250,
+    "0": 250
   },
   "worker_utilization_percent": {
-    "0": 98.5,
+    "0": 98.49,
     "1": 98.49,
-    "2": 98.42,
-    "3": 98.43
+    "2": 98.29,
+    "3": 98.58
   },
   "failure_errors": {}
 }

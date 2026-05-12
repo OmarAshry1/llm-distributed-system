@@ -1,0 +1,995 @@
+/media/ashry/New Volume/Coding/projects/llm-distributed-system/rag/rag_engine.py:281: LangChainDeprecationWarning: The class `HuggingFaceEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the :class:`~langchain-huggingface package and should be used instead. To use it run `pip install -U :class:`~langchain-huggingface` and import as `from :class:`~langchain_huggingface import HuggingFaceEmbeddings``.
+  embeddings = HuggingFaceEmbeddings(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[RAG] Initializing
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 11039.90it/s]
+/media/ashry/New Volume/Coding/projects/llm-distributed-system/rag/rag_engine.py:183: LangChainDeprecationWarning: The class `Chroma` was deprecated in LangChain 0.2.9 and will be removed in 1.0. An updated version of the class exists in the :class:`~langchain-chroma package and should be used instead. To use it run `pip install -U :class:`~langchain-chroma` and import as `from :class:`~langchain_chroma import Chroma``.
+  return Chroma(
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+[RAG] Loading persisted vector DB from /media/ashry/New Volume/Coding/projects/llm-distributed-system/rag/chroma_db/5af014f279f7fbe9
+[RAG] Using Ollama model: gemma:2b at http://localhost:11434/
+[RAG] Ollama options: {'num_predict': 128, 'num_ctx': 2048, 'temperature': 0.0, 'keep_alive': '-1m'}
+[RAG] Ready
+Scenario: users=100 strategy=round_robin requests=100
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=round_robin elapsed=5.4s completed=4/100 attempts=4
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=round_robin elapsed=10.4s completed=9/100 attempts=9
+[benchmark] users=100 strategy=round_robin elapsed=15.4s completed=14/100 attempts=14
+[benchmark] users=100 strategy=round_robin elapsed=20.4s completed=19/100 attempts=19
+[benchmark] users=100 strategy=round_robin elapsed=25.4s completed=23/100 attempts=23
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=round_robin elapsed=30.4s completed=29/100 attempts=29
+[benchmark] users=100 strategy=round_robin elapsed=35.4s completed=35/100 attempts=35
+[benchmark] users=100 strategy=round_robin elapsed=40.4s completed=41/100 attempts=41
+[benchmark] users=100 strategy=round_robin elapsed=45.4s completed=45/100 attempts=45
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=round_robin elapsed=50.4s completed=51/100 attempts=51
+[benchmark] users=100 strategy=round_robin elapsed=55.4s completed=56/100 attempts=56
+[benchmark] users=100 strategy=round_robin elapsed=60.4s completed=61/100 attempts=61
+[benchmark] users=100 strategy=round_robin elapsed=65.4s completed=66/100 attempts=66
+[benchmark] users=100 strategy=round_robin elapsed=70.4s completed=71/100 attempts=71
+[benchmark] users=100 strategy=round_robin elapsed=75.4s completed=76/100 attempts=76
+[benchmark] users=100 strategy=round_robin elapsed=80.4s completed=82/100 attempts=82
+[benchmark] users=100 strategy=round_robin elapsed=85.4s completed=88/100 attempts=88
+[benchmark] users=100 strategy=round_robin elapsed=90.4s completed=93/100 attempts=93
+[benchmark] users=100 strategy=round_robin elapsed=95.4s completed=98/100 attempts=98
+[benchmark] completed users=100 strategy=round_robin duration=96.9231s throughput=1.0317 rps p95=92.3116s failed=0
+Scenario: users=100 strategy=least_connections requests=100
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=least_connections elapsed=5.3s completed=5/100 attempts=5
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=least_connections elapsed=10.3s completed=12/100 attempts=12
+[benchmark] users=100 strategy=least_connections elapsed=15.3s completed=18/100 attempts=18
+[benchmark] users=100 strategy=least_connections elapsed=20.3s completed=23/100 attempts=23
+[benchmark] users=100 strategy=least_connections elapsed=25.3s completed=28/100 attempts=28
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=least_connections elapsed=30.3s completed=35/100 attempts=35
+[benchmark] users=100 strategy=least_connections elapsed=35.3s completed=42/100 attempts=42
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=least_connections elapsed=40.3s completed=49/100 attempts=49
+[benchmark] users=100 strategy=least_connections elapsed=45.3s completed=54/100 attempts=54
+[benchmark] users=100 strategy=least_connections elapsed=50.3s completed=60/100 attempts=60
+[benchmark] users=100 strategy=least_connections elapsed=55.3s completed=67/100 attempts=67
+[benchmark] users=100 strategy=least_connections elapsed=60.3s completed=73/100 attempts=73
+[benchmark] users=100 strategy=least_connections elapsed=65.3s completed=80/100 attempts=80
+[benchmark] users=100 strategy=least_connections elapsed=70.3s completed=85/100 attempts=85
+[benchmark] users=100 strategy=least_connections elapsed=75.3s completed=92/100 attempts=92
+[benchmark] users=100 strategy=least_connections elapsed=80.3s completed=99/100 attempts=99
+[benchmark] completed users=100 strategy=least_connections duration=81.127s throughput=1.2326 rps p95=76.9698s failed=0
+Scenario: users=100 strategy=load_aware requests=100
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=load_aware elapsed=5.3s completed=6/100 attempts=6
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=load_aware elapsed=10.3s completed=13/100 attempts=13
+[benchmark] users=100 strategy=load_aware elapsed=15.3s completed=18/100 attempts=18
+[benchmark] users=100 strategy=load_aware elapsed=20.3s completed=24/100 attempts=24
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=load_aware elapsed=25.3s completed=32/100 attempts=32
+[benchmark] users=100 strategy=load_aware elapsed=30.3s completed=37/100 attempts=37
+[benchmark] users=100 strategy=load_aware elapsed=35.3s completed=45/100 attempts=45
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=100 strategy=load_aware elapsed=40.3s completed=50/100 attempts=50
+[benchmark] users=100 strategy=load_aware elapsed=45.3s completed=58/100 attempts=58
+[benchmark] users=100 strategy=load_aware elapsed=50.3s completed=63/100 attempts=63
+[benchmark] users=100 strategy=load_aware elapsed=55.3s completed=71/100 attempts=71
+[benchmark] users=100 strategy=load_aware elapsed=60.3s completed=77/100 attempts=77
+[benchmark] users=100 strategy=load_aware elapsed=65.3s completed=85/100 attempts=85
+[benchmark] users=100 strategy=load_aware elapsed=70.3s completed=92/100 attempts=92
+[benchmark] users=100 strategy=load_aware elapsed=75.3s completed=97/100 attempts=97
+[benchmark] completed users=100 strategy=load_aware duration=76.1196s throughput=1.3137 rps p95=72.8845s failed=0
+Scenario: users=500 strategy=round_robin requests=500
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=6.0s completed=7/500 attempts=7
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=11.0s completed=13/500 attempts=13
+[benchmark] users=500 strategy=round_robin elapsed=16.0s completed=21/500 attempts=21
+[benchmark] users=500 strategy=round_robin elapsed=21.0s completed=26/500 attempts=26
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=26.0s completed=33/500 attempts=33
+[benchmark] users=500 strategy=round_robin elapsed=31.0s completed=40/500 attempts=40
+[benchmark] users=500 strategy=round_robin elapsed=36.0s completed=46/500 attempts=46
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=41.0s completed=52/500 attempts=52
+[benchmark] users=500 strategy=round_robin elapsed=46.0s completed=59/500 attempts=59
+[benchmark] users=500 strategy=round_robin elapsed=51.0s completed=65/500 attempts=65
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=56.0s completed=72/500 attempts=72
+[benchmark] users=500 strategy=round_robin elapsed=61.0s completed=79/500 attempts=79
+[benchmark] users=500 strategy=round_robin elapsed=66.0s completed=85/500 attempts=85
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=71.0s completed=92/500 attempts=92
+[benchmark] users=500 strategy=round_robin elapsed=76.0s completed=98/500 attempts=98
+[benchmark] users=500 strategy=round_robin elapsed=81.0s completed=103/500 attempts=103
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=86.0s completed=109/500 attempts=109
+[benchmark] users=500 strategy=round_robin elapsed=91.0s completed=115/500 attempts=115
+[benchmark] users=500 strategy=round_robin elapsed=96.0s completed=120/500 attempts=120
+[benchmark] users=500 strategy=round_robin elapsed=101.0s completed=126/500 attempts=126
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=106.0s completed=131/500 attempts=131
+[benchmark] users=500 strategy=round_robin elapsed=111.0s completed=136/500 attempts=136
+[benchmark] users=500 strategy=round_robin elapsed=116.0s completed=142/500 attempts=142
+[benchmark] users=500 strategy=round_robin elapsed=121.0s completed=148/500 attempts=148
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=126.0s completed=152/500 attempts=152
+[benchmark] users=500 strategy=round_robin elapsed=131.0s completed=159/500 attempts=159
+[benchmark] users=500 strategy=round_robin elapsed=136.0s completed=164/500 attempts=164
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=141.0s completed=169/500 attempts=169
+[benchmark] users=500 strategy=round_robin elapsed=146.0s completed=175/500 attempts=175
+[benchmark] users=500 strategy=round_robin elapsed=151.0s completed=180/500 attempts=180
+[benchmark] users=500 strategy=round_robin elapsed=156.0s completed=186/500 attempts=186
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=161.0s completed=191/500 attempts=191
+[benchmark] users=500 strategy=round_robin elapsed=166.0s completed=197/500 attempts=197
+[benchmark] users=500 strategy=round_robin elapsed=171.0s completed=202/500 attempts=202
+[benchmark] users=500 strategy=round_robin elapsed=176.0s completed=208/500 attempts=208
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=181.0s completed=213/500 attempts=213
+[benchmark] users=500 strategy=round_robin elapsed=186.0s completed=219/500 attempts=219
+[benchmark] users=500 strategy=round_robin elapsed=191.0s completed=223/500 attempts=223
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=196.0s completed=229/500 attempts=229
+[benchmark] users=500 strategy=round_robin elapsed=201.0s completed=234/500 attempts=234
+[benchmark] users=500 strategy=round_robin elapsed=206.0s completed=240/500 attempts=240
+[benchmark] users=500 strategy=round_robin elapsed=211.0s completed=245/500 attempts=245
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=216.0s completed=250/500 attempts=250
+[benchmark] users=500 strategy=round_robin elapsed=221.0s completed=256/500 attempts=256
+[benchmark] users=500 strategy=round_robin elapsed=226.0s completed=262/500 attempts=263
+[benchmark] users=500 strategy=round_robin elapsed=231.0s completed=267/500 attempts=268
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=236.0s completed=272/500 attempts=273
+[benchmark] users=500 strategy=round_robin elapsed=241.0s completed=277/500 attempts=278
+[benchmark] users=500 strategy=round_robin elapsed=246.0s completed=283/500 attempts=284
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=251.0s completed=289/500 attempts=290
+[benchmark] users=500 strategy=round_robin elapsed=256.0s completed=293/500 attempts=294
+[benchmark] users=500 strategy=round_robin elapsed=261.0s completed=298/500 attempts=299
+[benchmark] users=500 strategy=round_robin elapsed=266.0s completed=304/500 attempts=305
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=271.0s completed=309/500 attempts=310
+[benchmark] users=500 strategy=round_robin elapsed=276.0s completed=315/500 attempts=316
+[benchmark] users=500 strategy=round_robin elapsed=281.0s completed=320/500 attempts=321
+[benchmark] users=500 strategy=round_robin elapsed=286.0s completed=326/500 attempts=327
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=291.0s completed=332/500 attempts=333
+[benchmark] users=500 strategy=round_robin elapsed=296.0s completed=337/500 attempts=338
+[benchmark] users=500 strategy=round_robin elapsed=301.0s completed=343/500 attempts=344
+[benchmark] users=500 strategy=round_robin elapsed=306.0s completed=348/500 attempts=349
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=311.0s completed=353/500 attempts=354
+[benchmark] users=500 strategy=round_robin elapsed=316.0s completed=358/500 attempts=359
+[benchmark] users=500 strategy=round_robin elapsed=321.0s completed=365/500 attempts=366
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=326.0s completed=370/500 attempts=371
+[benchmark] users=500 strategy=round_robin elapsed=331.0s completed=375/500 attempts=376
+[benchmark] users=500 strategy=round_robin elapsed=336.0s completed=380/500 attempts=381
+[benchmark] users=500 strategy=round_robin elapsed=341.0s completed=386/500 attempts=387
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=346.0s completed=392/500 attempts=393
+[benchmark] users=500 strategy=round_robin elapsed=351.0s completed=397/500 attempts=398
+[benchmark] users=500 strategy=round_robin elapsed=356.0s completed=403/500 attempts=404
+[benchmark] users=500 strategy=round_robin elapsed=361.0s completed=408/500 attempts=409
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=366.0s completed=414/500 attempts=415
+[benchmark] users=500 strategy=round_robin elapsed=371.0s completed=419/500 attempts=420
+[benchmark] users=500 strategy=round_robin elapsed=376.0s completed=425/500 attempts=426
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=381.0s completed=431/500 attempts=432
+[benchmark] users=500 strategy=round_robin elapsed=386.0s completed=435/500 attempts=436
+[benchmark] users=500 strategy=round_robin elapsed=391.0s completed=441/500 attempts=442
+[benchmark] users=500 strategy=round_robin elapsed=396.0s completed=447/500 attempts=448
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=round_robin elapsed=401.0s completed=452/500 attempts=453
+[benchmark] users=500 strategy=round_robin elapsed=406.0s completed=457/500 attempts=458
+[benchmark] users=500 strategy=round_robin elapsed=411.0s completed=463/500 attempts=464
+[benchmark] users=500 strategy=round_robin elapsed=416.0s completed=469/500 attempts=470
+[benchmark] users=500 strategy=round_robin elapsed=421.0s completed=474/500 attempts=475
+[benchmark] users=500 strategy=round_robin elapsed=426.0s completed=479/500 attempts=480
+[benchmark] users=500 strategy=round_robin elapsed=431.0s completed=485/500 attempts=486
+[benchmark] users=500 strategy=round_robin elapsed=436.0s completed=491/500 attempts=492
+[benchmark] users=500 strategy=round_robin elapsed=441.0s completed=496/500 attempts=497
+[benchmark] completed users=500 strategy=round_robin duration=444.0303s throughput=1.126 rps p95=420.6535s failed=0
+Scenario: users=500 strategy=least_connections requests=500
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=6.0s completed=7/500 attempts=7
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=11.0s completed=14/500 attempts=14
+[benchmark] users=500 strategy=least_connections elapsed=16.0s completed=19/500 attempts=19
+[benchmark] users=500 strategy=least_connections elapsed=21.0s completed=26/500 attempts=26
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=26.0s completed=32/500 attempts=32
+[benchmark] users=500 strategy=least_connections elapsed=31.0s completed=39/500 attempts=39
+[benchmark] users=500 strategy=least_connections elapsed=36.0s completed=44/500 attempts=44
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=41.0s completed=51/500 attempts=51
+[benchmark] users=500 strategy=least_connections elapsed=46.0s completed=58/500 attempts=58
+[benchmark] users=500 strategy=least_connections elapsed=51.0s completed=63/500 attempts=63
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=56.0s completed=71/500 attempts=71
+[benchmark] users=500 strategy=least_connections elapsed=61.0s completed=78/500 attempts=78
+[benchmark] users=500 strategy=least_connections elapsed=66.0s completed=83/500 attempts=83
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=71.0s completed=91/500 attempts=91
+[benchmark] users=500 strategy=least_connections elapsed=76.0s completed=98/500 attempts=98
+[benchmark] users=500 strategy=least_connections elapsed=81.0s completed=103/500 attempts=103
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=86.0s completed=110/500 attempts=110
+[benchmark] users=500 strategy=least_connections elapsed=91.0s completed=116/500 attempts=116
+[benchmark] users=500 strategy=least_connections elapsed=96.0s completed=122/500 attempts=122
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=101.0s completed=130/500 attempts=130
+[benchmark] users=500 strategy=least_connections elapsed=106.0s completed=136/500 attempts=136
+[benchmark] users=500 strategy=least_connections elapsed=111.0s completed=142/500 attempts=142
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=116.0s completed=150/500 attempts=150
+[benchmark] users=500 strategy=least_connections elapsed=121.0s completed=155/500 attempts=155
+[benchmark] users=500 strategy=least_connections elapsed=126.0s completed=163/500 attempts=163
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=131.0s completed=169/500 attempts=169
+[benchmark] users=500 strategy=least_connections elapsed=136.0s completed=175/500 attempts=175
+[benchmark] users=500 strategy=least_connections elapsed=141.0s completed=183/500 attempts=183
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=146.0s completed=189/500 attempts=189
+[benchmark] users=500 strategy=least_connections elapsed=151.0s completed=196/500 attempts=196
+[benchmark] users=500 strategy=least_connections elapsed=156.0s completed=202/500 attempts=202
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=161.0s completed=209/500 attempts=209
+[benchmark] users=500 strategy=least_connections elapsed=166.0s completed=216/500 attempts=216
+[benchmark] users=500 strategy=least_connections elapsed=171.0s completed=221/500 attempts=221
+[benchmark] users=500 strategy=least_connections elapsed=176.0s completed=228/500 attempts=228
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=181.0s completed=235/500 attempts=235
+[benchmark] users=500 strategy=least_connections elapsed=186.0s completed=241/500 attempts=241
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=191.0s completed=249/500 attempts=249
+[benchmark] users=500 strategy=least_connections elapsed=196.0s completed=255/500 attempts=255
+[benchmark] users=500 strategy=least_connections elapsed=201.0s completed=262/500 attempts=262
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=206.0s completed=269/500 attempts=269
+[benchmark] users=500 strategy=least_connections elapsed=211.0s completed=276/500 attempts=276
+[benchmark] users=500 strategy=least_connections elapsed=216.0s completed=283/500 attempts=283
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=221.0s completed=289/500 attempts=289
+[benchmark] users=500 strategy=least_connections elapsed=226.0s completed=296/500 attempts=296
+[benchmark] users=500 strategy=least_connections elapsed=231.0s completed=302/500 attempts=302
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=236.0s completed=309/500 attempts=309
+[benchmark] users=500 strategy=least_connections elapsed=241.0s completed=316/500 attempts=316
+[benchmark] users=500 strategy=least_connections elapsed=246.0s completed=323/500 attempts=323
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=251.0s completed=329/500 attempts=329
+[benchmark] users=500 strategy=least_connections elapsed=256.0s completed=335/500 attempts=335
+[benchmark] users=500 strategy=least_connections elapsed=261.0s completed=342/500 attempts=342
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=266.0s completed=349/500 attempts=349
+[benchmark] users=500 strategy=least_connections elapsed=271.0s completed=355/500 attempts=355
+[benchmark] users=500 strategy=least_connections elapsed=276.0s completed=362/500 attempts=362
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=281.0s completed=369/500 attempts=369
+[benchmark] users=500 strategy=least_connections elapsed=286.0s completed=375/500 attempts=375
+[benchmark] users=500 strategy=least_connections elapsed=291.0s completed=382/500 attempts=382
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=296.0s completed=389/500 attempts=389
+[benchmark] users=500 strategy=least_connections elapsed=301.0s completed=395/500 attempts=395
+[benchmark] users=500 strategy=least_connections elapsed=306.0s completed=402/500 attempts=402
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=311.0s completed=409/500 attempts=409
+[benchmark] users=500 strategy=least_connections elapsed=316.0s completed=415/500 attempts=415
+[benchmark] users=500 strategy=least_connections elapsed=321.0s completed=422/500 attempts=422
+[benchmark] users=500 strategy=least_connections elapsed=326.0s completed=428/500 attempts=428
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=331.0s completed=435/500 attempts=435
+[benchmark] users=500 strategy=least_connections elapsed=336.0s completed=442/500 attempts=442
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=least_connections elapsed=341.0s completed=450/500 attempts=450
+[benchmark] users=500 strategy=least_connections elapsed=346.0s completed=455/500 attempts=455
+[benchmark] users=500 strategy=least_connections elapsed=351.0s completed=462/500 attempts=462
+[benchmark] users=500 strategy=least_connections elapsed=356.0s completed=469/500 attempts=469
+[benchmark] users=500 strategy=least_connections elapsed=361.0s completed=475/500 attempts=475
+[benchmark] users=500 strategy=least_connections elapsed=366.0s completed=482/500 attempts=482
+[benchmark] users=500 strategy=least_connections elapsed=371.0s completed=489/500 attempts=489
+[benchmark] users=500 strategy=least_connections elapsed=376.0s completed=496/500 attempts=496
+[benchmark] completed users=500 strategy=least_connections duration=378.8498s throughput=1.3198 rps p95=359.3231s failed=0
+Scenario: users=500 strategy=load_aware requests=500
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=5.8s completed=8/500 attempts=8
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=10.8s completed=14/500 attempts=14
+[benchmark] users=500 strategy=load_aware elapsed=15.8s completed=21/500 attempts=21
+[benchmark] users=500 strategy=load_aware elapsed=20.8s completed=28/500 attempts=28
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=25.8s completed=35/500 attempts=35
+[benchmark] users=500 strategy=load_aware elapsed=30.8s completed=42/500 attempts=42
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=35.8s completed=49/500 attempts=49
+[benchmark] users=500 strategy=load_aware elapsed=40.8s completed=56/500 attempts=56
+[benchmark] users=500 strategy=load_aware elapsed=45.8s completed=63/500 attempts=63
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=50.8s completed=71/500 attempts=71
+[benchmark] users=500 strategy=load_aware elapsed=55.8s completed=78/500 attempts=78
+[benchmark] users=500 strategy=load_aware elapsed=60.8s completed=85/500 attempts=85
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=65.8s completed=91/500 attempts=91
+[benchmark] users=500 strategy=load_aware elapsed=70.8s completed=100/500 attempts=100
+[benchmark] users=500 strategy=load_aware elapsed=75.8s completed=107/500 attempts=107
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=80.8s completed=114/500 attempts=114
+[benchmark] users=500 strategy=load_aware elapsed=85.8s completed=120/500 attempts=120
+[benchmark] users=500 strategy=load_aware elapsed=90.8s completed=128/500 attempts=128
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=95.8s completed=134/500 attempts=134
+[benchmark] users=500 strategy=load_aware elapsed=100.8s completed=142/500 attempts=142
+[benchmark] users=500 strategy=load_aware elapsed=105.8s completed=148/500 attempts=148
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=110.8s completed=156/500 attempts=156
+[benchmark] users=500 strategy=load_aware elapsed=115.8s completed=161/500 attempts=161
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=120.8s completed=170/500 attempts=170
+[benchmark] users=500 strategy=load_aware elapsed=125.8s completed=175/500 attempts=175
+[benchmark] users=500 strategy=load_aware elapsed=130.8s completed=181/500 attempts=181
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=135.8s completed=190/500 attempts=190
+[benchmark] users=500 strategy=load_aware elapsed=140.8s completed=196/500 attempts=196
+[benchmark] users=500 strategy=load_aware elapsed=145.8s completed=203/500 attempts=203
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=150.8s completed=212/500 attempts=212
+[benchmark] users=500 strategy=load_aware elapsed=155.8s completed=218/500 attempts=218
+[benchmark] users=500 strategy=load_aware elapsed=160.8s completed=225/500 attempts=225
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=165.8s completed=233/500 attempts=233
+[benchmark] users=500 strategy=load_aware elapsed=170.8s completed=239/500 attempts=239
+[benchmark] users=500 strategy=load_aware elapsed=175.9s completed=246/500 attempts=246
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=180.9s completed=253/500 attempts=253
+[benchmark] users=500 strategy=load_aware elapsed=185.9s completed=260/500 attempts=260
+[benchmark] users=500 strategy=load_aware elapsed=190.9s completed=267/500 attempts=267
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=195.9s completed=273/500 attempts=273
+[benchmark] users=500 strategy=load_aware elapsed=200.9s completed=281/500 attempts=281
+[benchmark] users=500 strategy=load_aware elapsed=205.9s completed=288/500 attempts=288
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=210.9s completed=295/500 attempts=295
+[benchmark] users=500 strategy=load_aware elapsed=215.9s completed=302/500 attempts=302
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=220.9s completed=310/500 attempts=310
+[benchmark] users=500 strategy=load_aware elapsed=225.9s completed=316/500 attempts=316
+[benchmark] users=500 strategy=load_aware elapsed=230.9s completed=323/500 attempts=323
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=235.9s completed=330/500 attempts=330
+[benchmark] users=500 strategy=load_aware elapsed=240.9s completed=337/500 attempts=337
+[benchmark] users=500 strategy=load_aware elapsed=245.9s completed=343/500 attempts=343
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=250.9s completed=352/500 attempts=352
+[benchmark] users=500 strategy=load_aware elapsed=255.9s completed=359/500 attempts=359
+[benchmark] users=500 strategy=load_aware elapsed=260.9s completed=365/500 attempts=365
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=265.9s completed=372/500 attempts=372
+[benchmark] users=500 strategy=load_aware elapsed=270.9s completed=379/500 attempts=379
+[benchmark] users=500 strategy=load_aware elapsed=275.9s completed=386/500 attempts=386
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=280.9s completed=392/500 attempts=392
+[benchmark] users=500 strategy=load_aware elapsed=285.9s completed=400/500 attempts=400
+[benchmark] users=500 strategy=load_aware elapsed=290.9s completed=407/500 attempts=407
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=295.9s completed=413/500 attempts=413
+[benchmark] users=500 strategy=load_aware elapsed=300.9s completed=420/500 attempts=420
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=305.9s completed=429/500 attempts=429
+[benchmark] users=500 strategy=load_aware elapsed=310.9s completed=435/500 attempts=435
+[benchmark] users=500 strategy=load_aware elapsed=315.9s completed=443/500 attempts=443
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=500 strategy=load_aware elapsed=320.9s completed=450/500 attempts=450
+[benchmark] users=500 strategy=load_aware elapsed=325.9s completed=457/500 attempts=457
+[benchmark] users=500 strategy=load_aware elapsed=330.9s completed=463/500 attempts=463
+[benchmark] users=500 strategy=load_aware elapsed=335.9s completed=471/500 attempts=471
+[benchmark] users=500 strategy=load_aware elapsed=340.9s completed=478/500 attempts=478
+[benchmark] users=500 strategy=load_aware elapsed=345.9s completed=485/500 attempts=485
+[benchmark] users=500 strategy=load_aware elapsed=350.9s completed=493/500 attempts=493
+[benchmark] completed users=500 strategy=load_aware duration=355.7293s throughput=1.4056 rps p95=337.635s failed=0
+Scenario: users=1000 strategy=round_robin requests=1000
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=6.2s completed=9/1000 attempts=9
+[benchmark] users=1000 strategy=round_robin elapsed=11.2s completed=15/1000 attempts=15
+[benchmark] users=1000 strategy=round_robin elapsed=16.2s completed=22/1000 attempts=22
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=21.2s completed=30/1000 attempts=30
+[benchmark] users=1000 strategy=round_robin elapsed=26.2s completed=37/1000 attempts=37
+[benchmark] users=1000 strategy=round_robin elapsed=31.2s completed=43/1000 attempts=43
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=36.2s completed=51/1000 attempts=51
+[benchmark] users=1000 strategy=round_robin elapsed=41.2s completed=56/1000 attempts=56
+[benchmark] users=1000 strategy=round_robin elapsed=46.2s completed=64/1000 attempts=64
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=51.2s completed=72/1000 attempts=72
+[benchmark] users=1000 strategy=round_robin elapsed=56.2s completed=79/1000 attempts=79
+[benchmark] users=1000 strategy=round_robin elapsed=61.2s completed=86/1000 attempts=86
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=66.2s completed=93/1000 attempts=93
+[benchmark] users=1000 strategy=round_robin elapsed=71.2s completed=101/1000 attempts=101
+[benchmark] users=1000 strategy=round_robin elapsed=76.2s completed=108/1000 attempts=108
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=81.2s completed=115/1000 attempts=115
+[benchmark] users=1000 strategy=round_robin elapsed=86.2s completed=121/1000 attempts=121
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=91.2s completed=129/1000 attempts=129
+[benchmark] users=1000 strategy=round_robin elapsed=96.2s completed=136/1000 attempts=136
+[benchmark] users=1000 strategy=round_robin elapsed=101.2s completed=144/1000 attempts=144
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=106.2s completed=151/1000 attempts=151
+[benchmark] users=1000 strategy=round_robin elapsed=111.2s completed=157/1000 attempts=157
+[benchmark] users=1000 strategy=round_robin elapsed=116.2s completed=164/1000 attempts=164
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=121.2s completed=171/1000 attempts=171
+[benchmark] users=1000 strategy=round_robin elapsed=126.2s completed=178/1000 attempts=178
+[benchmark] users=1000 strategy=round_robin elapsed=131.2s completed=186/1000 attempts=186
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=136.2s completed=194/1000 attempts=194
+[benchmark] users=1000 strategy=round_robin elapsed=141.2s completed=200/1000 attempts=200
+[benchmark] users=1000 strategy=round_robin elapsed=146.2s completed=208/1000 attempts=208
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=151.2s completed=214/1000 attempts=214
+[benchmark] users=1000 strategy=round_robin elapsed=156.2s completed=221/1000 attempts=221
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=161.2s completed=229/1000 attempts=229
+[benchmark] users=1000 strategy=round_robin elapsed=166.2s completed=235/1000 attempts=235
+[benchmark] users=1000 strategy=round_robin elapsed=171.2s completed=242/1000 attempts=242
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=176.2s completed=250/1000 attempts=250
+[benchmark] users=1000 strategy=round_robin elapsed=181.2s completed=257/1000 attempts=257
+[benchmark] users=1000 strategy=round_robin elapsed=186.2s completed=262/1000 attempts=262
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=191.2s completed=271/1000 attempts=271
+[benchmark] users=1000 strategy=round_robin elapsed=196.2s completed=277/1000 attempts=277
+[benchmark] users=1000 strategy=round_robin elapsed=201.2s completed=283/1000 attempts=283
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=206.2s completed=291/1000 attempts=291
+[benchmark] users=1000 strategy=round_robin elapsed=211.2s completed=300/1000 attempts=300
+[benchmark] users=1000 strategy=round_robin elapsed=216.2s completed=306/1000 attempts=306
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=221.2s completed=314/1000 attempts=314
+[benchmark] users=1000 strategy=round_robin elapsed=226.2s completed=320/1000 attempts=320
+[benchmark] users=1000 strategy=round_robin elapsed=231.2s completed=327/1000 attempts=327
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=236.2s completed=333/1000 attempts=333
+[benchmark] users=1000 strategy=round_robin elapsed=241.2s completed=340/1000 attempts=340
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=246.2s completed=349/1000 attempts=349
+[benchmark] users=1000 strategy=round_robin elapsed=251.2s completed=355/1000 attempts=355
+[benchmark] users=1000 strategy=round_robin elapsed=256.2s completed=362/1000 attempts=362
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=261.2s completed=370/1000 attempts=370
+[benchmark] users=1000 strategy=round_robin elapsed=266.2s completed=376/1000 attempts=376
+[benchmark] users=1000 strategy=round_robin elapsed=271.2s completed=383/1000 attempts=383
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=276.2s completed=391/1000 attempts=391
+[benchmark] users=1000 strategy=round_robin elapsed=281.2s completed=398/1000 attempts=398
+[benchmark] users=1000 strategy=round_robin elapsed=286.2s completed=405/1000 attempts=405
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=291.2s completed=412/1000 attempts=412
+[benchmark] users=1000 strategy=round_robin elapsed=296.2s completed=419/1000 attempts=419
+[benchmark] users=1000 strategy=round_robin elapsed=301.2s completed=426/1000 attempts=426
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=306.2s completed=434/1000 attempts=434
+[benchmark] users=1000 strategy=round_robin elapsed=311.2s completed=440/1000 attempts=440
+[benchmark] users=1000 strategy=round_robin elapsed=316.2s completed=448/1000 attempts=448
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=321.2s completed=455/1000 attempts=455
+[benchmark] users=1000 strategy=round_robin elapsed=326.2s completed=462/1000 attempts=462
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=331.2s completed=471/1000 attempts=471
+[benchmark] users=1000 strategy=round_robin elapsed=336.2s completed=477/1000 attempts=477
+[benchmark] users=1000 strategy=round_robin elapsed=341.2s completed=484/1000 attempts=484
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=346.2s completed=490/1000 attempts=490
+[benchmark] users=1000 strategy=round_robin elapsed=351.2s completed=497/1000 attempts=497
+[benchmark] users=1000 strategy=round_robin elapsed=356.2s completed=504/1000 attempts=504
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=361.2s completed=509/1000 attempts=509
+[benchmark] users=1000 strategy=round_robin elapsed=366.2s completed=515/1000 attempts=515
+[benchmark] users=1000 strategy=round_robin elapsed=371.2s completed=521/1000 attempts=521
+[benchmark] users=1000 strategy=round_robin elapsed=376.2s completed=527/1000 attempts=527
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=381.2s completed=532/1000 attempts=532
+[benchmark] users=1000 strategy=round_robin elapsed=386.2s completed=538/1000 attempts=538
+[benchmark] users=1000 strategy=round_robin elapsed=391.2s completed=543/1000 attempts=543
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=396.2s completed=549/1000 attempts=549
+[benchmark] users=1000 strategy=round_robin elapsed=401.2s completed=555/1000 attempts=555
+[benchmark] users=1000 strategy=round_robin elapsed=406.2s completed=561/1000 attempts=561
+[benchmark] users=1000 strategy=round_robin elapsed=411.2s completed=567/1000 attempts=567
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=416.2s completed=572/1000 attempts=572
+[benchmark] users=1000 strategy=round_robin elapsed=421.2s completed=577/1000 attempts=577
+[benchmark] users=1000 strategy=round_robin elapsed=426.2s completed=582/1000 attempts=582
+[benchmark] users=1000 strategy=round_robin elapsed=431.2s completed=588/1000 attempts=588
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=436.2s completed=594/1000 attempts=594
+[benchmark] users=1000 strategy=round_robin elapsed=441.2s completed=600/1000 attempts=600
+[benchmark] users=1000 strategy=round_robin elapsed=446.2s completed=605/1000 attempts=605
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=451.2s completed=611/1000 attempts=611
+[benchmark] users=1000 strategy=round_robin elapsed=456.2s completed=616/1000 attempts=616
+[benchmark] users=1000 strategy=round_robin elapsed=461.2s completed=622/1000 attempts=622
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=466.2s completed=629/1000 attempts=629
+[benchmark] users=1000 strategy=round_robin elapsed=471.2s completed=634/1000 attempts=634
+[benchmark] users=1000 strategy=round_robin elapsed=476.2s completed=640/1000 attempts=640
+[benchmark] users=1000 strategy=round_robin elapsed=481.2s completed=645/1000 attempts=645
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=486.2s completed=651/1000 attempts=651
+[benchmark] users=1000 strategy=round_robin elapsed=491.2s completed=656/1000 attempts=656
+[benchmark] users=1000 strategy=round_robin elapsed=496.2s completed=662/1000 attempts=662
+[benchmark] users=1000 strategy=round_robin elapsed=501.2s completed=668/1000 attempts=668
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=506.2s completed=674/1000 attempts=674
+[benchmark] users=1000 strategy=round_robin elapsed=511.2s completed=680/1000 attempts=680
+[benchmark] users=1000 strategy=round_robin elapsed=516.2s completed=685/1000 attempts=685
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=521.2s completed=691/1000 attempts=691
+[benchmark] users=1000 strategy=round_robin elapsed=526.2s completed=696/1000 attempts=696
+[benchmark] users=1000 strategy=round_robin elapsed=531.2s completed=702/1000 attempts=702
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=536.2s completed=709/1000 attempts=709
+[benchmark] users=1000 strategy=round_robin elapsed=541.2s completed=713/1000 attempts=713
+[benchmark] users=1000 strategy=round_robin elapsed=546.2s completed=720/1000 attempts=720
+[benchmark] users=1000 strategy=round_robin elapsed=551.2s completed=726/1000 attempts=726
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=556.2s completed=731/1000 attempts=731
+[benchmark] users=1000 strategy=round_robin elapsed=561.2s completed=737/1000 attempts=737
+[benchmark] users=1000 strategy=round_robin elapsed=566.2s completed=742/1000 attempts=742
+[benchmark] users=1000 strategy=round_robin elapsed=571.2s completed=748/1000 attempts=748
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=576.2s completed=753/1000 attempts=753
+[benchmark] users=1000 strategy=round_robin elapsed=581.2s completed=759/1000 attempts=759
+[benchmark] users=1000 strategy=round_robin elapsed=586.2s completed=765/1000 attempts=765
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=591.2s completed=771/1000 attempts=771
+[benchmark] users=1000 strategy=round_robin elapsed=596.2s completed=776/1000 attempts=776
+[benchmark] users=1000 strategy=round_robin elapsed=601.2s completed=782/1000 attempts=782
+[benchmark] users=1000 strategy=round_robin elapsed=606.2s completed=788/1000 attempts=788
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=611.2s completed=794/1000 attempts=794
+[benchmark] users=1000 strategy=round_robin elapsed=616.2s completed=799/1000 attempts=799
+[benchmark] users=1000 strategy=round_robin elapsed=621.2s completed=804/1000 attempts=804
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=626.2s completed=811/1000 attempts=811
+[benchmark] users=1000 strategy=round_robin elapsed=631.2s completed=815/1000 attempts=815
+[benchmark] users=1000 strategy=round_robin elapsed=636.2s completed=822/1000 attempts=822
+[benchmark] users=1000 strategy=round_robin elapsed=641.2s completed=828/1000 attempts=828
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=646.2s completed=834/1000 attempts=834
+[benchmark] users=1000 strategy=round_robin elapsed=651.2s completed=840/1000 attempts=840
+[benchmark] users=1000 strategy=round_robin elapsed=656.2s completed=845/1000 attempts=845
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=661.2s completed=851/1000 attempts=851
+[benchmark] users=1000 strategy=round_robin elapsed=666.2s completed=856/1000 attempts=856
+[benchmark] users=1000 strategy=round_robin elapsed=671.2s completed=862/1000 attempts=862
+[benchmark] users=1000 strategy=round_robin elapsed=676.2s completed=869/1000 attempts=869
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=681.2s completed=873/1000 attempts=873
+[benchmark] users=1000 strategy=round_robin elapsed=686.2s completed=880/1000 attempts=880
+[benchmark] users=1000 strategy=round_robin elapsed=691.2s completed=886/1000 attempts=886
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=696.2s completed=891/1000 attempts=891
+[benchmark] users=1000 strategy=round_robin elapsed=701.2s completed=896/1000 attempts=896
+[benchmark] users=1000 strategy=round_robin elapsed=706.2s completed=901/1000 attempts=901
+[benchmark] users=1000 strategy=round_robin elapsed=711.2s completed=907/1000 attempts=907
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=716.2s completed=913/1000 attempts=913
+[benchmark] users=1000 strategy=round_robin elapsed=721.2s completed=919/1000 attempts=919
+[benchmark] users=1000 strategy=round_robin elapsed=726.2s completed=924/1000 attempts=924
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=731.2s completed=930/1000 attempts=930
+[benchmark] users=1000 strategy=round_robin elapsed=736.2s completed=936/1000 attempts=936
+[benchmark] users=1000 strategy=round_robin elapsed=741.2s completed=941/1000 attempts=941
+[benchmark] users=1000 strategy=round_robin elapsed=746.2s completed=947/1000 attempts=947
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=round_robin elapsed=751.2s completed=953/1000 attempts=953
+[benchmark] users=1000 strategy=round_robin elapsed=756.2s completed=959/1000 attempts=959
+[benchmark] users=1000 strategy=round_robin elapsed=761.2s completed=964/1000 attempts=964
+[benchmark] users=1000 strategy=round_robin elapsed=766.2s completed=971/1000 attempts=971
+[benchmark] users=1000 strategy=round_robin elapsed=771.2s completed=975/1000 attempts=975
+[benchmark] users=1000 strategy=round_robin elapsed=776.2s completed=982/1000 attempts=982
+[benchmark] users=1000 strategy=round_robin elapsed=781.2s completed=988/1000 attempts=988
+[benchmark] users=1000 strategy=round_robin elapsed=786.2s completed=994/1000 attempts=994
+[benchmark] users=1000 strategy=round_robin elapsed=791.2s completed=999/1000 attempts=999
+[benchmark] completed users=1000 strategy=round_robin duration=791.2874s throughput=1.2638 rps p95=746.6843s failed=0
+Scenario: users=1000 strategy=least_connections requests=1000
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=6.1s completed=8/1000 attempts=8
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=11.1s completed=15/1000 attempts=15
+[benchmark] users=1000 strategy=least_connections elapsed=16.1s completed=24/1000 attempts=24
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=21.1s completed=30/1000 attempts=30
+[benchmark] users=1000 strategy=least_connections elapsed=26.1s completed=37/1000 attempts=37
+[benchmark] users=1000 strategy=least_connections elapsed=31.1s completed=44/1000 attempts=44
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=36.1s completed=51/1000 attempts=51
+[benchmark] users=1000 strategy=least_connections elapsed=41.1s completed=57/1000 attempts=57
+[benchmark] users=1000 strategy=least_connections elapsed=46.1s completed=66/1000 attempts=66
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=51.1s completed=73/1000 attempts=73
+[benchmark] users=1000 strategy=least_connections elapsed=56.1s completed=80/1000 attempts=80
+[benchmark] users=1000 strategy=least_connections elapsed=61.1s completed=88/1000 attempts=88
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=66.1s completed=95/1000 attempts=95
+[benchmark] users=1000 strategy=least_connections elapsed=71.1s completed=102/1000 attempts=102
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=76.1s completed=110/1000 attempts=110
+[benchmark] users=1000 strategy=least_connections elapsed=81.1s completed=116/1000 attempts=116
+[benchmark] users=1000 strategy=least_connections elapsed=86.1s completed=123/1000 attempts=123
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=91.1s completed=130/1000 attempts=130
+[benchmark] users=1000 strategy=least_connections elapsed=96.1s completed=137/1000 attempts=137
+[benchmark] users=1000 strategy=least_connections elapsed=101.1s completed=142/1000 attempts=142
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=106.1s completed=151/1000 attempts=151
+[benchmark] users=1000 strategy=least_connections elapsed=111.1s completed=157/1000 attempts=157
+[benchmark] users=1000 strategy=least_connections elapsed=116.1s completed=163/1000 attempts=163
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=121.1s completed=171/1000 attempts=171
+[benchmark] users=1000 strategy=least_connections elapsed=126.1s completed=176/1000 attempts=176
+[benchmark] users=1000 strategy=least_connections elapsed=131.1s completed=183/1000 attempts=183
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=136.1s completed=192/1000 attempts=192
+[benchmark] users=1000 strategy=least_connections elapsed=141.1s completed=198/1000 attempts=198
+[benchmark] users=1000 strategy=least_connections elapsed=146.1s completed=204/1000 attempts=204
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=151.1s completed=212/1000 attempts=212
+[benchmark] users=1000 strategy=least_connections elapsed=156.1s completed=219/1000 attempts=219
+[benchmark] users=1000 strategy=least_connections elapsed=161.1s completed=225/1000 attempts=225
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=166.1s completed=233/1000 attempts=233
+[benchmark] users=1000 strategy=least_connections elapsed=171.1s completed=239/1000 attempts=239
+[benchmark] users=1000 strategy=least_connections elapsed=176.1s completed=246/1000 attempts=246
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=181.1s completed=252/1000 attempts=252
+[benchmark] users=1000 strategy=least_connections elapsed=186.1s completed=258/1000 attempts=258
+[benchmark] users=1000 strategy=least_connections elapsed=191.1s completed=266/1000 attempts=266
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=196.1s completed=274/1000 attempts=274
+[benchmark] users=1000 strategy=least_connections elapsed=201.1s completed=280/1000 attempts=280
+[benchmark] users=1000 strategy=least_connections elapsed=206.1s completed=287/1000 attempts=287
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=211.1s completed=293/1000 attempts=293
+[benchmark] users=1000 strategy=least_connections elapsed=216.1s completed=301/1000 attempts=301
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=221.1s completed=309/1000 attempts=309
+[benchmark] users=1000 strategy=least_connections elapsed=226.1s completed=314/1000 attempts=314
+[benchmark] users=1000 strategy=least_connections elapsed=231.1s completed=321/1000 attempts=321
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=236.1s completed=329/1000 attempts=329
+[benchmark] users=1000 strategy=least_connections elapsed=241.1s completed=335/1000 attempts=335
+[benchmark] users=1000 strategy=least_connections elapsed=246.1s completed=341/1000 attempts=341
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=251.1s completed=349/1000 attempts=349
+[benchmark] users=1000 strategy=least_connections elapsed=256.1s completed=356/1000 attempts=356
+[benchmark] users=1000 strategy=least_connections elapsed=261.1s completed=363/1000 attempts=363
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=266.1s completed=370/1000 attempts=370
+[benchmark] users=1000 strategy=least_connections elapsed=271.1s completed=377/1000 attempts=377
+[benchmark] users=1000 strategy=least_connections elapsed=276.1s completed=383/1000 attempts=383
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=281.1s completed=391/1000 attempts=391
+[benchmark] users=1000 strategy=least_connections elapsed=286.1s completed=396/1000 attempts=396
+[benchmark] users=1000 strategy=least_connections elapsed=291.1s completed=404/1000 attempts=404
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=296.1s completed=412/1000 attempts=412
+[benchmark] users=1000 strategy=least_connections elapsed=301.1s completed=417/1000 attempts=417
+[benchmark] users=1000 strategy=least_connections elapsed=306.1s completed=425/1000 attempts=425
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=311.1s completed=433/1000 attempts=433
+[benchmark] users=1000 strategy=least_connections elapsed=316.1s completed=438/1000 attempts=438
+[benchmark] users=1000 strategy=least_connections elapsed=321.1s completed=446/1000 attempts=446
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=326.1s completed=453/1000 attempts=453
+[benchmark] users=1000 strategy=least_connections elapsed=331.1s completed=461/1000 attempts=461
+[benchmark] users=1000 strategy=least_connections elapsed=336.1s completed=468/1000 attempts=468
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=341.1s completed=474/1000 attempts=474
+[benchmark] users=1000 strategy=least_connections elapsed=346.1s completed=482/1000 attempts=482
+[benchmark] users=1000 strategy=least_connections elapsed=351.2s completed=488/1000 attempts=488
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=356.2s completed=494/1000 attempts=494
+[benchmark] users=1000 strategy=least_connections elapsed=361.2s completed=501/1000 attempts=501
+[benchmark] users=1000 strategy=least_connections elapsed=366.2s completed=508/1000 attempts=508
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=371.2s completed=514/1000 attempts=514
+[benchmark] users=1000 strategy=least_connections elapsed=376.2s completed=521/1000 attempts=521
+[benchmark] users=1000 strategy=least_connections elapsed=381.2s completed=528/1000 attempts=528
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=386.2s completed=534/1000 attempts=534
+[benchmark] users=1000 strategy=least_connections elapsed=391.2s completed=542/1000 attempts=542
+[benchmark] users=1000 strategy=least_connections elapsed=396.2s completed=549/1000 attempts=549
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=401.2s completed=555/1000 attempts=555
+[benchmark] users=1000 strategy=least_connections elapsed=406.2s completed=562/1000 attempts=562
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=411.2s completed=569/1000 attempts=569
+[benchmark] users=1000 strategy=least_connections elapsed=416.2s completed=577/1000 attempts=577
+[benchmark] users=1000 strategy=least_connections elapsed=421.2s completed=583/1000 attempts=583
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=426.2s completed=590/1000 attempts=590
+[benchmark] users=1000 strategy=least_connections elapsed=431.2s completed=596/1000 attempts=596
+[benchmark] users=1000 strategy=least_connections elapsed=436.2s completed=603/1000 attempts=603
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=441.2s completed=610/1000 attempts=610
+[benchmark] users=1000 strategy=least_connections elapsed=446.2s completed=618/1000 attempts=618
+[benchmark] users=1000 strategy=least_connections elapsed=451.2s completed=624/1000 attempts=624
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=456.2s completed=631/1000 attempts=631
+[benchmark] users=1000 strategy=least_connections elapsed=461.2s completed=639/1000 attempts=639
+[benchmark] users=1000 strategy=least_connections elapsed=466.2s completed=645/1000 attempts=645
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=471.2s completed=651/1000 attempts=651
+[benchmark] users=1000 strategy=least_connections elapsed=476.2s completed=659/1000 attempts=659
+[benchmark] users=1000 strategy=least_connections elapsed=481.2s completed=666/1000 attempts=666
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=486.2s completed=672/1000 attempts=672
+[benchmark] users=1000 strategy=least_connections elapsed=491.2s completed=679/1000 attempts=679
+[benchmark] users=1000 strategy=least_connections elapsed=496.2s completed=686/1000 attempts=686
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=501.2s completed=693/1000 attempts=693
+[benchmark] users=1000 strategy=least_connections elapsed=506.2s completed=700/1000 attempts=700
+[benchmark] users=1000 strategy=least_connections elapsed=511.2s completed=707/1000 attempts=707
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=516.2s completed=714/1000 attempts=714
+[benchmark] users=1000 strategy=least_connections elapsed=521.2s completed=721/1000 attempts=721
+[benchmark] users=1000 strategy=least_connections elapsed=526.2s completed=728/1000 attempts=728
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=531.2s completed=734/1000 attempts=734
+[benchmark] users=1000 strategy=least_connections elapsed=536.2s completed=741/1000 attempts=741
+[benchmark] users=1000 strategy=least_connections elapsed=541.2s completed=748/1000 attempts=748
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=546.2s completed=754/1000 attempts=754
+[benchmark] users=1000 strategy=least_connections elapsed=551.2s completed=761/1000 attempts=761
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=556.2s completed=769/1000 attempts=769
+[benchmark] users=1000 strategy=least_connections elapsed=561.2s completed=775/1000 attempts=775
+[benchmark] users=1000 strategy=least_connections elapsed=566.2s completed=782/1000 attempts=782
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=571.2s completed=790/1000 attempts=790
+[benchmark] users=1000 strategy=least_connections elapsed=576.2s completed=796/1000 attempts=796
+[benchmark] users=1000 strategy=least_connections elapsed=581.2s completed=803/1000 attempts=803
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=586.2s completed=811/1000 attempts=811
+[benchmark] users=1000 strategy=least_connections elapsed=591.2s completed=817/1000 attempts=817
+[benchmark] users=1000 strategy=least_connections elapsed=596.2s completed=824/1000 attempts=824
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=601.2s completed=831/1000 attempts=831
+[benchmark] users=1000 strategy=least_connections elapsed=606.2s completed=838/1000 attempts=838
+[benchmark] users=1000 strategy=least_connections elapsed=611.2s completed=844/1000 attempts=844
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=616.2s completed=852/1000 attempts=852
+[benchmark] users=1000 strategy=least_connections elapsed=621.2s completed=858/1000 attempts=858
+[benchmark] users=1000 strategy=least_connections elapsed=626.2s completed=865/1000 attempts=865
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=631.2s completed=873/1000 attempts=873
+[benchmark] users=1000 strategy=least_connections elapsed=636.2s completed=880/1000 attempts=880
+[benchmark] users=1000 strategy=least_connections elapsed=641.2s completed=887/1000 attempts=887
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=646.2s completed=894/1000 attempts=894
+[benchmark] users=1000 strategy=least_connections elapsed=651.2s completed=901/1000 attempts=901
+[benchmark] users=1000 strategy=least_connections elapsed=656.2s completed=908/1000 attempts=908
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=661.2s completed=914/1000 attempts=914
+[benchmark] users=1000 strategy=least_connections elapsed=666.2s completed=921/1000 attempts=921
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=671.2s completed=929/1000 attempts=929
+[benchmark] users=1000 strategy=least_connections elapsed=676.2s completed=935/1000 attempts=935
+[benchmark] users=1000 strategy=least_connections elapsed=681.2s completed=942/1000 attempts=942
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=least_connections elapsed=686.2s completed=950/1000 attempts=950
+[benchmark] users=1000 strategy=least_connections elapsed=691.2s completed=956/1000 attempts=956
+[benchmark] users=1000 strategy=least_connections elapsed=696.2s completed=963/1000 attempts=963
+[benchmark] users=1000 strategy=least_connections elapsed=701.2s completed=971/1000 attempts=971
+[benchmark] users=1000 strategy=least_connections elapsed=706.2s completed=977/1000 attempts=977
+[benchmark] users=1000 strategy=least_connections elapsed=711.2s completed=984/1000 attempts=984
+[benchmark] users=1000 strategy=least_connections elapsed=716.2s completed=991/1000 attempts=991
+[benchmark] users=1000 strategy=least_connections elapsed=721.2s completed=998/1000 attempts=998
+[benchmark] completed users=1000 strategy=least_connections duration=722.331s throughput=1.3844 rps p95=685.0245s failed=0
+Scenario: users=1000 strategy=load_aware requests=1000
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=6.0s completed=6/1000 attempts=6
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=11.0s completed=14/1000 attempts=14
+[benchmark] users=1000 strategy=load_aware elapsed=16.0s completed=21/1000 attempts=21
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=21.0s completed=29/1000 attempts=29
+[benchmark] users=1000 strategy=load_aware elapsed=26.0s completed=34/1000 attempts=34
+[benchmark] users=1000 strategy=load_aware elapsed=31.0s completed=42/1000 attempts=42
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=36.0s completed=50/1000 attempts=50
+[benchmark] users=1000 strategy=load_aware elapsed=41.0s completed=56/1000 attempts=56
+[benchmark] users=1000 strategy=load_aware elapsed=46.0s completed=62/1000 attempts=62
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=51.0s completed=71/1000 attempts=71
+[benchmark] users=1000 strategy=load_aware elapsed=56.0s completed=76/1000 attempts=76
+[benchmark] users=1000 strategy=load_aware elapsed=61.0s completed=84/1000 attempts=84
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=66.0s completed=92/1000 attempts=92
+[benchmark] users=1000 strategy=load_aware elapsed=71.0s completed=98/1000 attempts=98
+[benchmark] users=1000 strategy=load_aware elapsed=76.0s completed=107/1000 attempts=107
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=81.0s completed=113/1000 attempts=113
+[benchmark] users=1000 strategy=load_aware elapsed=86.0s completed=120/1000 attempts=120
+[benchmark] users=1000 strategy=load_aware elapsed=91.0s completed=128/1000 attempts=128
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=96.0s completed=135/1000 attempts=135
+[benchmark] users=1000 strategy=load_aware elapsed=101.0s completed=143/1000 attempts=143
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=106.0s completed=151/1000 attempts=151
+[benchmark] users=1000 strategy=load_aware elapsed=111.0s completed=156/1000 attempts=156
+[benchmark] users=1000 strategy=load_aware elapsed=116.0s completed=165/1000 attempts=165
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=121.0s completed=172/1000 attempts=172
+[benchmark] users=1000 strategy=load_aware elapsed=126.0s completed=179/1000 attempts=179
+[benchmark] users=1000 strategy=load_aware elapsed=131.0s completed=188/1000 attempts=188
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=136.0s completed=194/1000 attempts=194
+[benchmark] users=1000 strategy=load_aware elapsed=141.0s completed=201/1000 attempts=201
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=146.0s completed=210/1000 attempts=210
+[benchmark] users=1000 strategy=load_aware elapsed=151.0s completed=217/1000 attempts=217
+[benchmark] users=1000 strategy=load_aware elapsed=156.0s completed=224/1000 attempts=224
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=161.0s completed=232/1000 attempts=232
+[benchmark] users=1000 strategy=load_aware elapsed=166.0s completed=238/1000 attempts=238
+[benchmark] users=1000 strategy=load_aware elapsed=171.0s completed=246/1000 attempts=246
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=176.0s completed=253/1000 attempts=253
+[benchmark] users=1000 strategy=load_aware elapsed=181.0s completed=260/1000 attempts=260
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=186.0s completed=269/1000 attempts=269
+[benchmark] users=1000 strategy=load_aware elapsed=191.0s completed=275/1000 attempts=275
+[benchmark] users=1000 strategy=load_aware elapsed=196.0s completed=282/1000 attempts=282
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=201.0s completed=290/1000 attempts=290
+[benchmark] users=1000 strategy=load_aware elapsed=206.0s completed=298/1000 attempts=298
+[benchmark] users=1000 strategy=load_aware elapsed=211.0s completed=306/1000 attempts=306
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=216.0s completed=313/1000 attempts=313
+[benchmark] users=1000 strategy=load_aware elapsed=221.0s completed=320/1000 attempts=320
+[benchmark] users=1000 strategy=load_aware elapsed=226.0s completed=328/1000 attempts=328
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=231.0s completed=334/1000 attempts=334
+[benchmark] users=1000 strategy=load_aware elapsed=236.0s completed=343/1000 attempts=343
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=241.0s completed=351/1000 attempts=351
+[benchmark] users=1000 strategy=load_aware elapsed=246.0s completed=357/1000 attempts=357
+[benchmark] users=1000 strategy=load_aware elapsed=251.0s completed=364/1000 attempts=364
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=256.0s completed=372/1000 attempts=372
+[benchmark] users=1000 strategy=load_aware elapsed=261.0s completed=378/1000 attempts=378
+[benchmark] users=1000 strategy=load_aware elapsed=266.0s completed=387/1000 attempts=387
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=271.0s completed=394/1000 attempts=394
+[benchmark] users=1000 strategy=load_aware elapsed=276.0s completed=401/1000 attempts=401
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=281.0s completed=409/1000 attempts=409
+[benchmark] users=1000 strategy=load_aware elapsed=286.0s completed=417/1000 attempts=417
+[benchmark] users=1000 strategy=load_aware elapsed=291.0s completed=423/1000 attempts=423
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=296.0s completed=431/1000 attempts=431
+[benchmark] users=1000 strategy=load_aware elapsed=301.0s completed=438/1000 attempts=438
+[benchmark] users=1000 strategy=load_aware elapsed=306.0s completed=447/1000 attempts=447
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=311.0s completed=454/1000 attempts=454
+[benchmark] users=1000 strategy=load_aware elapsed=316.0s completed=460/1000 attempts=460
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=321.0s completed=470/1000 attempts=470
+[benchmark] users=1000 strategy=load_aware elapsed=326.0s completed=476/1000 attempts=476
+[benchmark] users=1000 strategy=load_aware elapsed=331.0s completed=483/1000 attempts=483
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=336.0s completed=491/1000 attempts=491
+[benchmark] users=1000 strategy=load_aware elapsed=341.0s completed=498/1000 attempts=498
+[benchmark] users=1000 strategy=load_aware elapsed=346.0s completed=505/1000 attempts=505
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=351.0s completed=514/1000 attempts=514
+[benchmark] users=1000 strategy=load_aware elapsed=356.0s completed=520/1000 attempts=520
+[benchmark] users=1000 strategy=load_aware elapsed=361.0s completed=528/1000 attempts=528
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=366.0s completed=534/1000 attempts=534
+[benchmark] users=1000 strategy=load_aware elapsed=371.0s completed=542/1000 attempts=542
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=376.0s completed=550/1000 attempts=550
+[benchmark] users=1000 strategy=load_aware elapsed=381.0s completed=557/1000 attempts=557
+[benchmark] users=1000 strategy=load_aware elapsed=386.0s completed=564/1000 attempts=564
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=391.0s completed=571/1000 attempts=571
+[benchmark] users=1000 strategy=load_aware elapsed=396.0s completed=579/1000 attempts=579
+[benchmark] users=1000 strategy=load_aware elapsed=401.0s completed=586/1000 attempts=586
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=406.0s completed=593/1000 attempts=593
+[benchmark] users=1000 strategy=load_aware elapsed=411.0s completed=600/1000 attempts=600
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=416.0s completed=609/1000 attempts=609
+[benchmark] users=1000 strategy=load_aware elapsed=421.0s completed=615/1000 attempts=615
+[benchmark] users=1000 strategy=load_aware elapsed=426.0s completed=622/1000 attempts=622
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=431.0s completed=631/1000 attempts=631
+[benchmark] users=1000 strategy=load_aware elapsed=436.0s completed=638/1000 attempts=638
+[benchmark] users=1000 strategy=load_aware elapsed=441.0s completed=646/1000 attempts=646
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=446.0s completed=653/1000 attempts=653
+[benchmark] users=1000 strategy=load_aware elapsed=451.0s completed=661/1000 attempts=661
+[benchmark] users=1000 strategy=load_aware elapsed=456.0s completed=668/1000 attempts=668
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=461.0s completed=675/1000 attempts=675
+[benchmark] users=1000 strategy=load_aware elapsed=466.0s completed=682/1000 attempts=682
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=471.0s completed=690/1000 attempts=690
+[benchmark] users=1000 strategy=load_aware elapsed=476.0s completed=697/1000 attempts=697
+[benchmark] users=1000 strategy=load_aware elapsed=481.0s completed=705/1000 attempts=705
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=486.0s completed=713/1000 attempts=713
+[benchmark] users=1000 strategy=load_aware elapsed=491.0s completed=720/1000 attempts=720
+[benchmark] users=1000 strategy=load_aware elapsed=496.0s completed=728/1000 attempts=728
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=501.0s completed=734/1000 attempts=734
+[benchmark] users=1000 strategy=load_aware elapsed=506.0s completed=741/1000 attempts=741
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=511.0s completed=751/1000 attempts=751
+[benchmark] users=1000 strategy=load_aware elapsed=516.0s completed=757/1000 attempts=757
+[benchmark] users=1000 strategy=load_aware elapsed=521.0s completed=763/1000 attempts=763
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=526.0s completed=772/1000 attempts=772
+[benchmark] users=1000 strategy=load_aware elapsed=531.0s completed=778/1000 attempts=778
+[benchmark] users=1000 strategy=load_aware elapsed=536.0s completed=786/1000 attempts=786
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=541.0s completed=793/1000 attempts=793
+[benchmark] users=1000 strategy=load_aware elapsed=546.0s completed=801/1000 attempts=801
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=551.0s completed=809/1000 attempts=809
+[benchmark] users=1000 strategy=load_aware elapsed=556.0s completed=815/1000 attempts=815
+[benchmark] users=1000 strategy=load_aware elapsed=561.0s completed=822/1000 attempts=822
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=566.0s completed=831/1000 attempts=831
+[benchmark] users=1000 strategy=load_aware elapsed=571.0s completed=837/1000 attempts=837
+[benchmark] users=1000 strategy=load_aware elapsed=576.0s completed=844/1000 attempts=844
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=581.0s completed=853/1000 attempts=853
+[benchmark] users=1000 strategy=load_aware elapsed=586.2s completed=860/1000 attempts=860
+[benchmark] users=1000 strategy=load_aware elapsed=591.2s completed=868/1000 attempts=868
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=596.2s completed=874/1000 attempts=874
+[benchmark] users=1000 strategy=load_aware elapsed=601.2s completed=882/1000 attempts=882
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=606.2s completed=890/1000 attempts=890
+[benchmark] users=1000 strategy=load_aware elapsed=611.2s completed=897/1000 attempts=897
+[benchmark] users=1000 strategy=load_aware elapsed=616.2s completed=903/1000 attempts=903
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=621.2s completed=912/1000 attempts=912
+[benchmark] users=1000 strategy=load_aware elapsed=626.2s completed=918/1000 attempts=918
+[benchmark] users=1000 strategy=load_aware elapsed=631.2s completed=926/1000 attempts=926
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=636.2s completed=933/1000 attempts=933
+[benchmark] users=1000 strategy=load_aware elapsed=641.2s completed=940/1000 attempts=940
+[benchmark] users=1000 strategy=load_aware elapsed=646.2s completed=948/1000 attempts=948
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+[benchmark] users=1000 strategy=load_aware elapsed=651.2s completed=956/1000 attempts=956
+[benchmark] users=1000 strategy=load_aware elapsed=656.2s completed=962/1000 attempts=962
+[benchmark] users=1000 strategy=load_aware elapsed=661.2s completed=970/1000 attempts=970
+[benchmark] users=1000 strategy=load_aware elapsed=666.2s completed=977/1000 attempts=977
+[benchmark] users=1000 strategy=load_aware elapsed=671.2s completed=984/1000 attempts=984
+[benchmark] users=1000 strategy=load_aware elapsed=676.2s completed=993/1000 attempts=993
+[benchmark] users=1000 strategy=load_aware elapsed=681.2s completed=999/1000 attempts=999
+[benchmark] completed users=1000 strategy=load_aware duration=681.2011s throughput=1.468 rps p95=645.6546s failed=0
+Wrote /media/ashry/New Volume/Coding/projects/llm-distributed-system/reports/performance_tables.md
