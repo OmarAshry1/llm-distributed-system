@@ -110,7 +110,7 @@ export RAG_CHUNK_OVERLAP=200
 export RAG_RETRIEVER_K=4
 
 # Ollama generation/performance tuning
-export OLLAMA_KEEP_ALIVE=-1
+export OLLAMA_KEEP_ALIVE=-1m
 export OLLAMA_NUM_PREDICT=128
 export OLLAMA_NUM_CTX=2048
 export OLLAMA_TEMPERATURE=0
@@ -120,7 +120,7 @@ For 100/500/1000-user real-LLM evaluation on an 8 GB VRAM machine, use short res
 
 ```bash
 export OLLAMA_MODEL=gemma:2b
-export OLLAMA_KEEP_ALIVE=-1
+export OLLAMA_KEEP_ALIVE=-1m
 export OLLAMA_NUM_PREDICT=128
 export OLLAMA_NUM_CTX=2048
 export OLLAMA_TEMPERATURE=0

@@ -114,7 +114,7 @@ py main.py --num-users 500 --requests-per-user 3 --strategy least_connections --
 Recommended real-LLM benchmark settings for an 8 GB VRAM machine:
 
 ```powershell
-$env:OLLAMA_KEEP_ALIVE="-1"
+$env:OLLAMA_KEEP_ALIVE="-1m"
 $env:OLLAMA_NUM_PREDICT="128"
 $env:OLLAMA_NUM_CTX="2048"
 $env:OLLAMA_TEMPERATURE="0"

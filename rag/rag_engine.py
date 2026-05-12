@@ -87,6 +87,22 @@ def _env_optional_float(name):
         return None
 
 
+def _env_ollama_keep_alive():
+    value = os.getenv("OLLAMA_KEEP_ALIVE")
+    if value is None:
+        return None
+
+    value = value.strip()
+    if not value:
+        return None
+
+    # Ollama's API parses duration strings such as "5m" or "-1m".
+    # The Ollama server env var commonly uses "-1", so normalize it here.
+    if value.lstrip("-").isdigit() and value != "0":
+        return f"{value}m"
+    return value
+
+
 def _env_bool(name, default=False):
     value = os.getenv(name)
     if value is None:
@@ -118,7 +134,7 @@ def _resolve_config(
         "ollama_num_ctx": _env_optional_int("OLLAMA_NUM_CTX"),
         "ollama_num_thread": _env_optional_int("OLLAMA_NUM_THREAD"),
         "ollama_temperature": _env_optional_float("OLLAMA_TEMPERATURE"),
-        "ollama_keep_alive": os.getenv("OLLAMA_KEEP_ALIVE") or None,
+        "ollama_keep_alive": _env_ollama_keep_alive(),
     }
 
 

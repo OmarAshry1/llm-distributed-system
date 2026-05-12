@@ -44,7 +44,7 @@ def test_resolve_config_reads_ollama_tuning_env(monkeypatch, reset_rag_state):
         "num_ctx": 2048,
         "num_thread": 8,
         "temperature": 0.0,
-        "keep_alive": "-1",
+        "keep_alive": "-1m",
     }
 
 
