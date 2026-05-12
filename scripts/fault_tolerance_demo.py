@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run a focused worker-failure scenario and export evidence for the report."""
+# el script da bytest failure worker w byekteb evidence lel report
 from __future__ import annotations
 
 import argparse

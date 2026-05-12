@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""
-Run end-to-end scenarios (100 / 500 / 1000 users x three strategies) in one process
-so RAG initializes once and every request uses the configured Ollama-backed RAG chain.
-
-Writes JSON per scenario and reports/performance_tables.md.
-"""
+# el script da byrun scenarios el benchmark w byekteb el reports
 from __future__ import annotations
 
 import json

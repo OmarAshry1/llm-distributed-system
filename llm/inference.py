@@ -1,4 +1,3 @@
-# Context handling is owned by the RAG engine.
 def run_llm(query, session_id):
     from rag.rag_engine import query_rag_with_memory
 

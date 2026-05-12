@@ -22,7 +22,7 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 
 try:
     from chromadb.config import Settings as ChromaSettings
-except Exception:  # pragma: no cover - Chroma may be absent in lightweight test envs.
+except Exception:
     ChromaSettings = None
 
 
@@ -33,7 +33,7 @@ warnings.filterwarnings(
     category=Warning,
 )
 
-# Global RAG state. Initialization happens once before workers start serving requests.
+# el state da shared 3ashan el rag yinitialize mara wa7da
 vectorstore = None
 rag_chain = None
 _rag_ready = False
@@ -96,8 +96,7 @@ def _env_ollama_keep_alive():
     if not value:
         return None
 
-    # Ollama's API parses duration strings such as "5m" or "-1m".
-    # The Ollama server env var commonly uses "-1", so normalize it here.
+    # ollama by7eb el duration teb2a zay -1m mesh -1 bas
     if value.lstrip("-").isdigit() and value != "0":
         return f"{value}m"
     return value
@@ -243,8 +242,7 @@ def _check_ollama_model_available(base_url, model_name):
         )
 
 
-# initialize el rag - run once before serving requests.
-# Workflow: PDFs -> chunks -> embeddings -> vector DB -> retriever -> LLM chain.
+# el function de btzbot el rag pipeline men el pdf lel ollama chain
 def initialize_rag(
     pdf_paths,
     persist_directory=None,
@@ -333,15 +331,15 @@ def initialize_rag(
         print("[RAG] Ready")
         return rag_chain
 
-
-## history-aware wrapper
-
 _store = {}
+
+
 def get_session_history(session_id):
     with _history_lock:
         if session_id not in _store:
             _store[session_id] = ChatMessageHistory()
         return _store[session_id]
+
 
 def get_conversational_chain():
     if rag_chain is None:
@@ -355,7 +353,8 @@ def get_conversational_chain():
         output_messages_key="answer",
     )
 
-# invoking el llm aw el inference
+
+# el function de betnady el chain bel memory beta3 kol session
 def query_rag_with_memory(query, session_id):
     chain = get_conversational_chain()
 

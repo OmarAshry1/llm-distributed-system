@@ -10,10 +10,10 @@ class LoadBalancer:
         self.workers = workers
         self.strategy = strategy
         self.max_retries = max_retries
-        self.session_map = {}             # maps client_id to worker
+        self.session_map = {}
         self.session_lock = threading.Lock()
 
-    # Handles routing of incoming client requests
+    # el dispatch de bywaza3 el request w bye3ed ygarab law worker we2e3
     def dispatch(self, request):
         client_id = request.client_id
         attempts = 0
@@ -76,7 +76,7 @@ class LoadBalancer:
     def _get_worker_for_client(self, client_id, excluded_worker_ids=None):
         excluded_worker_ids = excluded_worker_ids or set()
 
-        # Sticky Session + Fault Tolerance, ensures same client goes to same worker and reassigns if worker has failed
+        # el sticky session bysabet el client 3ala worker tool ma howa alive
         with self.session_lock:
             worker = self.session_map.get(client_id)
             if (
@@ -90,7 +90,6 @@ class LoadBalancer:
             self.session_map[client_id] = worker
             return worker
 
-    # Select worker using current strategy
     def _select_worker(self, excluded_worker_ids=None):
         excluded_worker_ids = excluded_worker_ids or set()
         alive_workers = [
@@ -99,7 +98,6 @@ class LoadBalancer:
         ]
 
         if not alive_workers:
-            # system-wide failure condition
             raise RuntimeError("All workers are down!")
 
         return self.strategy.get_worker(alive_workers)
@@ -117,7 +115,6 @@ class LoadBalancer:
             for worker in self.workers
         }
 
-    # Allows runtime switching of strategy
     def set_strategy(self, new_strategy):
         with self.session_lock:
             self.strategy = new_strategy

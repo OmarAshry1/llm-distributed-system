@@ -7,8 +7,8 @@ from common.quiet import dprint
 class Worker:
     def __init__(self, id, capacity=8):
         self.id = id
-        self.is_alive = True   # used by load balancer health check
-        self.active_connections = 0      # used by Least Connections strategy
+        self.is_alive = True
+        self.active_connections = 0
         self.capacity = max(1, capacity)
         self._capacity_slots = threading.Semaphore(self.capacity)
         self.max_queue_length = 0
@@ -23,12 +23,12 @@ class Worker:
         if not self.is_alive:
             raise RuntimeError(f"Worker {self.id} is down")
 
+        # el semaphore de byemessel slots el GPU worker
         self._capacity_slots.acquire()
         try:
             busy_start = time.time()
             dprint(f"[Worker {self.id}] Processing request {request.id}")
 
-            # Session persistence based on client identity to maintain context across requests
             session_id = f"client_{request.client_id}"
 
             from llm.inference import run_llm
@@ -77,7 +77,7 @@ class Worker:
         with self._lock:
             return min(100.0, (self.total_busy_time / (elapsed * self.capacity)) * 100)
 
-    # Fault tolerance
+    # el functions dol le failure simulation
     def simulate_failure(self):
         self.is_alive = False
         print(f"[Worker {self.id}] Node failure simulated")

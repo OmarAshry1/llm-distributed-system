@@ -141,6 +141,26 @@ Optional: `BENCHMARK_USER_COUNTS=50,100` to shorten runs.
 These runs require LangChain + Chroma dependencies, an available `data/sample.pdf`, and Ollama running with the configured `OLLAMA_MODEL`.
 Startup checks Ollama before the load test begins; if the configured model is missing, run `ollama pull <model>` or update `OLLAMA_MODEL`.
 
+## Metrics comparison
+
+Latest benchmark reports are stored in `reports/metrics_u*_*.json`. The current run used the real RAG + Ollama path with `REQUESTS_PER_USER=1` and completed without failed requests.
+
+| Users | Strategy | Avg latency (s) | p95 latency (s) | Throughput (req/s) | Duration (s) | Failed |
+|---:|---|---:|---:|---:|---:|---:|
+| 100 | round_robin | 49.5669 | 92.3116 | 1.0317 | 96.9231 | 0 |
+| 100 | least_connections | 41.5482 | 76.9698 | 1.2326 | 81.1270 | 0 |
+| 100 | load_aware | 39.1805 | 72.8845 | 1.3137 | 76.1196 | 0 |
+| 500 | round_robin | 216.3775 | 420.6535 | 1.1260 | 444.0303 | 0 |
+| 500 | least_connections | 190.7937 | 359.3231 | 1.3198 | 378.8498 | 0 |
+| 500 | load_aware | 178.2407 | 337.6350 | 1.4056 | 355.7293 | 0 |
+| 1000 | round_robin | 373.9150 | 746.6843 | 1.2638 | 791.2874 | 0 |
+| 1000 | least_connections | 359.8508 | 685.0245 | 1.3844 | 722.3310 | 0 |
+| 1000 | load_aware | 341.7796 | 645.6546 | 1.4680 | 681.2011 | 0 |
+
+Compared with Round Robin, Load-Aware improved throughput by about **27.3%** at 100 users, **24.8%** at 500 users, and **16.2%** at 1000 users. It also reduced p95 latency by about **21.0%**, **19.7%**, and **13.5%** for the same user counts.
+
+Least Connections also improved over Round Robin because it reacts to active load, while Round Robin only balances request count. Load-Aware performed best because it considers current load and worker capacity, which matters when local Ollama/RAG inference becomes the bottleneck.
+
 Optional heterogeneous-worker scenario for evaluating adaptive routing under uneven capacity:
 
 ```powershell
