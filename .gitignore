@@ -25,3 +25,5 @@ rag/chroma_db/
 ollama.log
 
 *.docx
+
+RUN_COMMANDS.md

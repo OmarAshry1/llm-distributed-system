@@ -1,0 +1,25 @@
+{
+  "total_requests": 5,
+  "successful_requests": 5,
+  "failed_requests": 0,
+  "total_attempts": 5,
+  "duration_seconds": 4.3063,
+  "throughput_rps": 1.1611,
+  "avg_latency_seconds": 2.724,
+  "p95_latency_seconds": 3.6813,
+  "min_latency_seconds": 0.6927,
+  "max_latency_seconds": 4.306,
+  "per_worker_requests": {
+    "0": 2,
+    "3": 1,
+    "1": 1,
+    "2": 1
+  },
+  "worker_utilization_percent": {
+    "0": 12.7,
+    "1": 8.89,
+    "2": 12.5,
+    "3": 5.45
+  },
+  "failure_errors": {}
+}
